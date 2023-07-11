@@ -7,15 +7,22 @@ import proud from '../assets/proud.png'
 import relaxed from '../assets/relaxed.png'
 import unamused from '../assets/unamused.png'
 
-
 import "./MoodList.css"
 
-const MoodList = () => {
+/**
+ * MoodList contains all the moods for user to choose
+ *
+ * Proptypes
+ * @param {(mood) => void} onChange: (function) triggered when choice changes, takes mood as parameters
+ */
+const MoodList = (props) => {
   const [choice, setChoice] = useState("");
 
   // called when mood changed
   const handleChange = (event) => {
-    console.log(event.target.value);
+    setChoice(event.target.value);
+    console.log(choice);
+    props.onChange(choice);
   }
 
   return (

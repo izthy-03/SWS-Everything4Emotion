@@ -1,7 +1,13 @@
 import { Checkbox, Divider } from 'antd';
 import { useEffect, useState } from 'react';
 
-const SongPeriod = () => {
+/**
+ * SongPeriod is a checkbox for users to choose the decade they prefer
+ *
+ * Proptypes
+ * @param {([]) => void} onChange: (function) triggered when checkbox is modified, takes checkedList as parameters
+ */
+const SongPeriod = (props) => {
 
   const CheckboxGroup = Checkbox.Group;
   const plainOptions = ['90s', '00s', '10s'];
@@ -25,7 +31,8 @@ const SongPeriod = () => {
 
   // called when checkedList changed
   useEffect(() => {
-    console.log(checkedList);
+    // console.log(checkedList);
+    props.onChange(checkedList);
   }, [checkedList]);
 
   return (

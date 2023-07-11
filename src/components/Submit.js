@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 
-const Submit = () => {
+const Submit = (props) => {
 
   // called when submitting
   const handleSubmit = () => {

@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import Input from "antd/es/input/Input";
 
-const Singer = () => {
+/**
+ * Singer is a text input for users to type in the singer they prefer
+ *
+ * Proptypes
+ * @param {(singer) => void} onChange: (function) triggered when singer is modified, takes text as parameters
+ */
+const Singer = (props) => {
   const [value, setValue] = useState("");
 
   // called when input modified
   const handleChange = (event) => {
     setValue(event.target.value)
-    console.log(value);
+    // console.log(value);
+    props.onChange(value);
   }
 
   return (

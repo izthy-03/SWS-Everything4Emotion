@@ -4,13 +4,20 @@ import "./AnyText.css"
 
 const { TextArea } = Input;
 
-const AnyText = () => {
+/**
+ * AnyText is a text input for user to type in anything
+ *
+ * Proptypes
+ * @param {(text) => void} onChange: (function) triggered when text is modified, takes text as parameters
+ */
+const AnyText = (props) => {
   const [value, setValue] = useState("");
 
   // called when input modified
   const handleChange = (event) => {
-    setValue(event.target.value)
-    console.log(value);
+    setValue(event.target.value);
+    // console.log(value);
+    props.onChange(value);
   }
 
 
