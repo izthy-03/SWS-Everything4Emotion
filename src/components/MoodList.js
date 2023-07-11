@@ -13,6 +13,7 @@ import "./MoodList.css"
 const MoodList = () => {
   const [choice, setChoice] = useState("");
 
+  // called when mood changed
   const handleChange = (event) => {
     console.log(event.target.value);
   }
