@@ -14,21 +14,31 @@ const MoodList = () => {
   return (
     <div>
       <p>Choose your mood now</p>
-      <img src={happy} />
-      <img src={confused} />
-      <img src={proud} />
-      <img src={relaxed} />
-      <img src={unamused} />
       <p>
         <Radio.Group defaultValue="a" size="large" style={{ marginTop: 0, }}>
-          <Radio.Button value="a">happy</Radio.Button>
-          <Radio.Button value="b">confused</Radio.Button>
-          <Radio.Button value="c">proud</Radio.Button>
-          <Radio.Button value="d">relaxed</Radio.Button>
-          <Radio.Button value="e">unamused</Radio.Button>
+          <Radio.Button value="a" style={{ width: 150, height: 180 }}>
+            <img src={happy} />
+            happy
+          </Radio.Button>
+          <Radio.Button value="b" style={{ width: 150, height: 180 }}>
+            <img src={confused} />
+            confused
+          </Radio.Button>
+          <Radio.Button value="c" style={{ width: 150, height: 180 }}>
+            <img src={proud} />
+            proud
+          </Radio.Button>
+          <Radio.Button value="d" style={{ width: 150, height: 180 }}>
+            <img src={relaxed} />
+            relaxed
+          </Radio.Button>
+          <Radio.Button value="e" style={{ width: 150, height: 180 }}>
+            <img src={unamused} />
+            unamused
+          </Radio.Button>
         </Radio.Group>
       </p>
-    </div>
+    </div >
   );
 }
 
