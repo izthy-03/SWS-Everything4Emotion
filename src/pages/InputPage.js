@@ -3,6 +3,7 @@ import MoodList from "../components/MoodList";
 import SongPeriod from "../components/SongPeriod";
 import Singer from "../components/Singer";
 import AnyText from "../components/AnyText";
+import Submit from "../components/Submit";
 
 const InputPage = () => {
 
@@ -12,6 +13,7 @@ const InputPage = () => {
       <SongPeriod />
       <Singer />
       <AnyText />
+      <Submit />
     </div>
 
   );
