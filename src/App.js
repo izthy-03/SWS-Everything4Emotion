@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import InputForm from './pages/InputForm';
+import InputPage from './pages/InputPage';
 
 
 import './App.css';
@@ -7,7 +7,7 @@ import './App.css';
 const App = () => {
   return (
     <div className="App">
-      <InputForm />
+      <InputPage />
     </div>
   );
 }

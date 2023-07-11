@@ -5,7 +5,7 @@ const SongPeriod = () => {
 
   const CheckboxGroup = Checkbox.Group;
   const plainOptions = ['90s', '00s', '10s'];
-  const defaultCheckedList = [];
+  const defaultCheckedList = ['90s'];
 
   const [checkedList, setCheckedList] = useState(defaultCheckedList);
   const [indeterminate, setIndeterminate] = useState(true);

@@ -21,30 +21,28 @@ const MoodList = () => {
   return (
     <div>
       <p>Choose your mood now</p>
-      <p>
-        <Radio.Group defaultValue="null" size="large" onChange={handleChange} style={{ marginTop: 0, }}>
-          <Radio.Button value="happy" style={{ width: 150, height: 180 }}>
-            <img src={happy} />
-            happy
-          </Radio.Button>
-          <Radio.Button value="confused" style={{ width: 150, height: 180 }}>
-            <img src={confused} />
-            confused
-          </Radio.Button>
-          <Radio.Button value="proud" style={{ width: 150, height: 180 }}>
-            <img src={proud} />
-            proud
-          </Radio.Button>
-          <Radio.Button value="relaxed" style={{ width: 150, height: 180 }}>
-            <img src={relaxed} />
-            relaxed
-          </Radio.Button>
-          <Radio.Button value="unamused" style={{ width: 150, height: 180 }}>
-            <img src={unamused} />
-            unamused
-          </Radio.Button>
-        </Radio.Group>
-      </p>
+      <Radio.Group defaultValue="null" size="large" onChange={handleChange} style={{ marginTop: 0, }}>
+        <Radio.Button value="happy" style={{ width: 150, height: 180 }}>
+          <img src={happy} />
+          happy
+        </Radio.Button>
+        <Radio.Button value="confused" style={{ width: 150, height: 180 }}>
+          <img src={confused} />
+          confused
+        </Radio.Button>
+        <Radio.Button value="proud" style={{ width: 150, height: 180 }}>
+          <img src={proud} />
+          proud
+        </Radio.Button>
+        <Radio.Button value="relaxed" style={{ width: 150, height: 180 }}>
+          <img src={relaxed} />
+          relaxed
+        </Radio.Button>
+        <Radio.Button value="unamused" style={{ width: 150, height: 180 }}>
+          <img src={unamused} />
+          unamused
+        </Radio.Button>
+      </Radio.Group>
     </div >
   );
 }
