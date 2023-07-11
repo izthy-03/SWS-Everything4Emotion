@@ -4,6 +4,9 @@ import SongPeriod from "../components/SongPeriod";
 import Singer from "../components/Singer";
 import AnyText from "../components/AnyText";
 import Submit from "../components/Submit";
+import { get, post, put } from "../utilities";
+
+
 
 const InputPage = () => {
 
@@ -12,12 +15,22 @@ const InputPage = () => {
   const [singer, setSinger] = useState("");
   const [text, setText] = useState("");
 
-  useEffect(() => {
-    console.log(mood);
-    console.log(period);
-    console.log(singer);
-    console.log(text);
+  const handleSubmit = () => {
+    let body = {
+      mood: mood,
+      period: period,
+      singer: singer,
+      text: text
+    };
+    console.log(body);
     console.log("========================");
+
+    post('https://example.com/profile', body)
+      .catch((err) => { console.log(err) });
+
+  }
+  useEffect(() => {
+
   }, [mood, period, singer, text]);
 
   return (
@@ -26,7 +39,7 @@ const InputPage = () => {
       <SongPeriod onChange={setPeriod} />
       <Singer onChange={setSinger} />
       <AnyText onChange={setText} />
-      <Submit />
+      <Submit onSubmit={handleSubmit} />
     </div>
 
   );

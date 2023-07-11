@@ -16,13 +16,11 @@ import "./MoodList.css"
  * @param {(mood) => void} onChange: (function) triggered when choice changes, takes mood as parameters
  */
 const MoodList = (props) => {
-  const [choice, setChoice] = useState("");
 
   // called when mood changed
   const handleChange = (event) => {
-    setChoice(event.target.value);
-    console.log(choice);
-    props.onChange(choice);
+    // console.log(event.target.value);
+    props.onChange(event.target.value);
   }
 
   return (

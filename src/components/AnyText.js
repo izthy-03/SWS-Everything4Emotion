@@ -11,15 +11,12 @@ const { TextArea } = Input;
  * @param {(text) => void} onChange: (function) triggered when text is modified, takes text as parameters
  */
 const AnyText = (props) => {
-  const [value, setValue] = useState("");
 
   // called when input modified
   const handleChange = (event) => {
-    setValue(event.target.value);
     // console.log(value);
-    props.onChange(value);
+    props.onChange(event.target.value);
   }
-
 
   return (
     <div className="AnyText-container">

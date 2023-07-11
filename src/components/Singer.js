@@ -8,13 +8,11 @@ import Input from "antd/es/input/Input";
  * @param {(singer) => void} onChange: (function) triggered when singer is modified, takes text as parameters
  */
 const Singer = (props) => {
-  const [value, setValue] = useState("");
 
   // called when input modified
   const handleChange = (event) => {
-    setValue(event.target.value)
     // console.log(value);
-    props.onChange(value);
+    props.onChange(event.target.value);
   }
 
   return (
