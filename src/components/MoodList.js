@@ -22,7 +22,7 @@ const MoodList = () => {
     <div>
       <p>Choose your mood now</p>
       <p>
-        <Radio.Group defaultValue="a" size="large" onChange={handleChange} style={{ marginTop: 0, }}>
+        <Radio.Group defaultValue="null" size="large" onChange={handleChange} style={{ marginTop: 0, }}>
           <Radio.Button value="happy" style={{ width: 150, height: 180 }}>
             <img src={happy} />
             happy

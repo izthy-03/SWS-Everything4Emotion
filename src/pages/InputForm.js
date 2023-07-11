@@ -1,6 +1,7 @@
 import React from "react";
 import MoodList from "../components/MoodList";
 import SongPeriod from "../components/SongPeriod";
+import Singer from "../components/Singer";
 
 const InputForm = () => {
 
@@ -8,6 +9,7 @@ const InputForm = () => {
     <div>
       <MoodList />
       <SongPeriod />
+      <Singer />
     </div>
 
   );
