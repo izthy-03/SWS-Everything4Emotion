@@ -5,7 +5,7 @@ import Singer from "../components/Singer";
 import AnyText from "../components/AnyText";
 import Submit from "../components/Submit";
 import { get, post, put } from "../utilities";
-
+import { Link } from "@reach/router";
 
 
 const InputPage = () => {
@@ -30,6 +30,7 @@ const InputPage = () => {
       .catch((err) => { console.log(err) });
 
   }
+
   useEffect(() => {
 
   }, [mood, period, singer, text]);
