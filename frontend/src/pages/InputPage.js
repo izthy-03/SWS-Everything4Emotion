@@ -25,7 +25,8 @@ const InputPage = () => {
     console.log(JSON.stringify(body));
     console.log("========================");
 
-    post('https://example.com/profile', { body })
+    post('https://localhost:8000/query/', body)
+      .then(data => console.log(data))
       .catch((err) => { console.log(err) });
 
   }
