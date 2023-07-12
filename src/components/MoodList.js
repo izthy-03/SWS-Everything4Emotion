@@ -27,24 +27,24 @@ const MoodList = (props) => {
     <div>
       <p>Choose your mood now</p>
       <Radio.Group defaultValue="null" size="large" onChange={handleChange} style={{ marginTop: 0, }}>
-        <Radio.Button value="happy" style={{ width: 150, height: 180 }}>
-          <img src={happy} />
+        <Radio.Button value="happy" style={{ width: 140, height: 160 }}>
+          <img src={happy} className="MoodList-img" />
           happy
         </Radio.Button>
-        <Radio.Button value="confused" style={{ width: 150, height: 180 }}>
-          <img src={confused} />
+        <Radio.Button value="confused" style={{ width: 140, height: 160 }}>
+          <img src={confused} className="MoodList-img" />
           confused
         </Radio.Button>
-        <Radio.Button value="proud" style={{ width: 150, height: 180 }}>
-          <img src={proud} />
+        <Radio.Button value="proud" style={{ width: 140, height: 160 }}>
+          <img src={proud} className="MoodList-img" />
           proud
         </Radio.Button>
-        <Radio.Button value="relaxed" style={{ width: 150, height: 180 }}>
-          <img src={relaxed} />
+        <Radio.Button value="relaxed" style={{ width: 140, height: 160 }}>
+          <img src={relaxed} className="MoodList-img" />
           relaxed
         </Radio.Button>
-        <Radio.Button value="unamused" style={{ width: 150, height: 180 }}>
-          <img src={unamused} />
+        <Radio.Button value="unamused" style={{ width: 140, height: 160 }}>
+          <img src={unamused} className="MoodList-img" />
           unamused
         </Radio.Button>
       </Radio.Group>
