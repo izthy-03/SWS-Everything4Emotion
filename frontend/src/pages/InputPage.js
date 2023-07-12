@@ -22,10 +22,10 @@ const InputPage = () => {
       singer: singer,
       text: text
     };
-    console.log(body);
+    console.log(JSON.stringify(body));
     console.log("========================");
 
-    post('https://example.com/profile', body)
+    post('https://example.com/profile', { body })
       .catch((err) => { console.log(err) });
 
   }
