@@ -26,6 +26,7 @@ const InputPage = () => {
     console.log("========================");
 
     post('https://example.com/profile', { body })
+      .then(data => console.log(data))
       .catch((err) => { console.log(err) });
 
   }
