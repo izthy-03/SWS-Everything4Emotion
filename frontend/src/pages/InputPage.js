@@ -25,7 +25,7 @@ const InputPage = () => {
     console.log(JSON.stringify(body));
     console.log("========================");
 
-    post('https://example.com/profile', { body })
+    post('http://127.0.0.1:8000/query/', body)
       .then(data => console.log(data))
       .catch((err) => { console.log(err) });
 
