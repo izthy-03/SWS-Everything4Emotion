@@ -24,13 +24,7 @@ const InputPage = () => {
     };
     console.log(JSON.stringify(body));
     console.log("========================");
-
-    post('https://localhost:8000/query/', body)
-      .then(data => {
-        console.log(data);
-        sessionStorage.setItem("userData", data);
-      })
-      .catch((err) => { console.log(err) });
+    sessionStorage.setItem("request", JSON.stringify(body));
 
   }
 
