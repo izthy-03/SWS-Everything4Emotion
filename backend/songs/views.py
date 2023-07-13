@@ -3,11 +3,12 @@ from django.http import Http404
 
 from .serializers import SongSerializer, QuerySerializer
 from .models import Songs, Queries
-
+from externalAPI.chatGPT import gpt_35_api_non_stream as gpt
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+
 
 # just list ???
 # it depends on whether we allow users to upload their own songs
@@ -34,9 +35,13 @@ class QueryList(APIView):
     def post(self, request, format = None):
         serializer = QuerySerializer(data=request.data, context = {'request':request})
         if serializer.is_valid():
-            print(serializer.__dict__)
-            serializer.save()
-            return Response(serializer.data, status=status. HTTP_201_CREATED)
+            result = gpt(serializer.data['text'])
+            print(request.data , serializer.validated_data)
+            if result[0] == True:
+                return Response(result[1], status=status. HTTP_201_CREATED)
+            #.save()
+            else:
+                return Response("chatGPT service error", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -62,4 +67,3 @@ class QueryDetail(APIView):
             return Response(serializer.data, status=status. HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
