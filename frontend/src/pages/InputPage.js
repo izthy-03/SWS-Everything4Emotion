@@ -5,7 +5,7 @@ import Singer from "../components/Singer";
 import AnyText from "../components/AnyText";
 import Submit from "../components/Submit";
 import { get, post, put } from "../utilities";
-
+import { Link } from "@reach/router";
 
 
 const InputPage = () => {
@@ -26,10 +26,14 @@ const InputPage = () => {
     console.log("========================");
 
     post('https://localhost:8000/query/', body)
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        sessionStorage.setItem("userData", data);
+      })
       .catch((err) => { console.log(err) });
 
   }
+
   useEffect(() => {
 
   }, [mood, period, singer, text]);

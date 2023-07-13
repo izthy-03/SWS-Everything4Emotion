@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "antd";
+import { Link } from "@reach/router";
 
 /**
  * Submit is a button to submit all the input to the backend
@@ -20,7 +21,10 @@ const Submit = (props) => {
         type="primary"
         size="large"
         onClick={handleSubmit}>
-        Submit
+
+        <Link to="/feed">
+          Submit
+        </Link>
       </Button>
     </div>
   );
