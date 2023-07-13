@@ -25,7 +25,11 @@ const InputPage = () => {
     console.log(JSON.stringify(body));
     console.log("========================");
 
+<<<<<<< HEAD
     post('http://127.0.0.1:8000/query/', body)
+=======
+    post('https://localhost:8000/query/', body)
+>>>>>>> 1ff0024945d7b90f0145624c3de2da946310d2e5
       .then(data => console.log(data))
       .catch((err) => { console.log(err) });
 
