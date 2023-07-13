@@ -4,8 +4,10 @@ import { Router } from "@reach/router";
 import NavBar from "./components/NavBar";
 import InputPage from './pages/InputPage';
 import Feed from "./pages/Feed";
+import NotFound from "./pages/NotFound";
 
 import './App.css';
+import "./utilities.css"
 
 const App = () => {
 
@@ -16,10 +18,10 @@ const App = () => {
       <NavBar />
       <div className="App">
         <Router>
-          <InputPage path="/" />
-          <Feed path="/feed/" />
+          <InputPage path="/input/" key={111} />
+          <Feed path="/feed/" key={222} />
+          <NotFound default key={333} />
         </Router>
-
       </div>
     </>
   );
