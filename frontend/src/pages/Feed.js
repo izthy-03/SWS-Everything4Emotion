@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 
-const Feed = () => {
+const Feed = (props) => {
 
-  useEffect(() => { }, []);
+  const data = useState(sessionStorage.getItem("userData"));
+
+  useEffect(() => {
+    console.log(data);
+  }, []);
 
   return (
     <>

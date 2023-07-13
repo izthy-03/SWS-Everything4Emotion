@@ -26,7 +26,10 @@ const InputPage = () => {
     console.log("========================");
 
     post('https://localhost:8000/query/', body)
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        sessionStorage.setItem("userData", data);
+      })
       .catch((err) => { console.log(err) });
 
   }

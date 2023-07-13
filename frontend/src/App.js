@@ -18,9 +18,9 @@ const App = () => {
       <NavBar />
       <div className="App">
         <Router>
-          <InputPage path="/input/" key={111} />
-          <Feed path="/feed/" key={222} />
-          <NotFound default key={333} />
+          <InputPage path="/" />
+          <Feed path="/feed/" />
+          <NotFound default />
         </Router>
       </div>
     </>
