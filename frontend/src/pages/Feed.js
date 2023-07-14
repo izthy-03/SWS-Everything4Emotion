@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-
 import { get, post, put } from "../utilities";
+import TextCard from "../components/TextCard";
+
+import "./Feed.css"
+import "../utilities.css"
 
 const Feed = () => {
 
-  const [res, setRes] = useState({});
+  const [res, setRes] = useState("");
 
   useEffect(() => {
 
@@ -20,7 +23,7 @@ const Feed = () => {
     if (bodyStr !== lastReqStr) {
       post('http://127.0.0.1:8000/query/', body)
         .then(data => {
-          console.log(data);
+          // console.log(data); 
           setRes(data);
           sessionStorage.setItem("lastReq", bodyStr);
           sessionStorage.setItem("lastRes", JSON.stringify(data));
@@ -28,15 +31,14 @@ const Feed = () => {
         .catch((err) => { console.log(err) });
     }
     else {
-      setRes(JSON.parse(lastResStr));
+      // setRes(JSON.parse(lastResStr));
+      setRes(lastResStr);
     }
   }, []);
 
   return (
     <>
-      <span>
-        {JSON.stringify(res)}
-      </span>
+      <TextCard content={res} />
     </>
   );
 }
