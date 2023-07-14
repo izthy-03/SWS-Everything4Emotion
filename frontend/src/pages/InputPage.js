@@ -4,9 +4,6 @@ import SongPeriod from "../components/SongPeriod";
 import Singer from "../components/Singer";
 import AnyText from "../components/AnyText";
 import Submit from "../components/Submit";
-import { get, post, put } from "../utilities";
-import { Link } from "@reach/router";
-
 
 const InputPage = () => {
 
