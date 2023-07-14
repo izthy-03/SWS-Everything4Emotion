@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { get, post, put } from "../utilities";
 import TextCard from "../components/TextCard";
+import ReactJkMusicPlayer from 'react-jinke-music-player'
+import 'react-jinke-music-player/assets/index.css'
+
 
 import "./Feed.css"
 import "../utilities.css"
@@ -23,15 +26,14 @@ const Feed = () => {
     if (bodyStr !== lastReqStr) {
       post('http://127.0.0.1:8000/query/', body)
         .then(data => {
-          // console.log(data); 
+          console.log("new fetch:\n", data);
           setRes(data);
           sessionStorage.setItem("lastReq", bodyStr);
-          sessionStorage.setItem("lastRes", JSON.stringify(data));
+          sessionStorage.setItem("lastRes", data);
         })
         .catch((err) => { console.log(err) });
     }
     else {
-      // setRes(JSON.parse(lastResStr));
       setRes(lastResStr);
     }
   }, []);
@@ -39,6 +41,7 @@ const Feed = () => {
   return (
     <>
       <TextCard content={res} />
+      <ReactJkMusicPlayer />
     </>
   );
 }

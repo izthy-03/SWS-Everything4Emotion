@@ -12,8 +12,11 @@ import "../utilities.css"
  */
 const TextCard = (props) => {
 
+  const [text, setText] = useState("");
+
   useEffect(() => {
-    console.log(props.content);
+    // console.log(props.content);
+    setText(sessionStorage.getItem("lastRes"));
   }, []);
 
   return (
