@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
+import MyAvatar from "./MyAvatar";
 
 import "./NavBar.css";
 import "../utilities.css"
@@ -18,6 +19,10 @@ const NavBar = () => {
         <Link to="/feed/" className="NavBar-link">
           Feed
         </Link>
+        <Link to="/login/" className="NavBar-link">
+          Login
+        </Link>
+        <MyAvatar style={{ margin: "1000" }} />
       </div>
     </nav>
   );

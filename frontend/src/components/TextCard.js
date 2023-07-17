@@ -12,8 +12,12 @@ import "../utilities.css"
  */
 const TextCard = (props) => {
 
+  const [text, setText] = useState("");
+
   useEffect(() => {
-    console.log(props.content);
+    // console.log(props.content);
+    let content = props.content;
+    setText(content === null ? "" : content);
   }, []);
 
   return (
@@ -23,7 +27,9 @@ const TextCard = (props) => {
           width: 800,
         }}
       >
-        {props.content.split('\n').map((line) => (<p>{line}</p>))}
+        {props.content !== null ?
+          props.content.split('\n').map((line) => (<p>{line}</p>))
+          : ""}
       </Card>
 
     </div>
