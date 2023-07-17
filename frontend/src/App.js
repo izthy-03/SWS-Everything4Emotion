@@ -16,7 +16,6 @@ const App = () => {
 
   return (
     <>
-      <NavBar />
       <div className="App">
         <Router>
           <InputPage path="/" />

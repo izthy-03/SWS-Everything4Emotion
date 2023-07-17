@@ -3,6 +3,7 @@ import { get, post, put } from "../utilities";
 import TextCard from "../components/TextCard";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
+import NavBar from "../components/NavBar";
 
 
 import "./Feed.css"
@@ -40,6 +41,7 @@ const Feed = () => {
 
   return (
     <>
+      <NavBar />
       <TextCard content={res} />
       <ReactJkMusicPlayer mode="full" />
     </>

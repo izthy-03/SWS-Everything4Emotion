@@ -1,116 +1,176 @@
 import React from 'react';
-import { Card, Input, Space, Button, Form, message, AutoComplete } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { HttpStatusCode } from "axios";
-import { Link } from 'react-router-dom'
-import "./Login.css"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
+import './Login.css';
 
-export let currentUser = {
-  userID: -1,
-  username: "",
-  password: "",
-  role: -1,
-};
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
 
-export const getCurrentUser = () => {
-  return currentUser;
+const client = axios.create({
+  baseURL: "http://127.0.0.1:8000"
+});
+
+function Login() {
+
+  const [currentUser, setCurrentUser] = useState();
+  const [registrationToggle, setRegistrationToggle] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    client.get("/api/user")
+      .then(function (res) {
+        setCurrentUser(true);
+      })
+      .catch(function (error) {
+        setCurrentUser(false);
+      });
+  }, []);
+
+  function update_form_btn() {
+    if (registrationToggle) {
+      document.getElementById("form_btn").innerHTML = "Register";
+      setRegistrationToggle(false);
+    } else {
+      document.getElementById("form_btn").innerHTML = "Log in";
+      setRegistrationToggle(true);
+    }
+  }
+
+  function submitRegistration(e) {
+    e.preventDefault();
+    client.post(
+      "/api/register",
+      {
+        email: email,
+        username: username,
+        password: password
+      }
+    ).then(function (res) {
+      client.post(
+        "/api/login",
+        {
+          email: email,
+          password: password
+        }
+      ).then(function (res) {
+        setCurrentUser(true);
+      });
+    });
+  }
+
+  function submitLogin(e) {
+    e.preventDefault();
+    client.post(
+      "/api/login",
+      {
+        email: email,
+        password: password
+      }
+    ).then(function (res) {
+      setCurrentUser(true);
+    });
+  }
+
+  function submitLogout(e) {
+    e.preventDefault();
+    client.post(
+      "/api/logout",
+      { withCredentials: true }
+    ).then(function (res) {
+      setCurrentUser(false);
+    });
+  }
+
+  if (currentUser) {
+    return (
+      <div>
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand>Authentication App</Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                <form onSubmit={e => submitLogout(e)}>
+                  <Button type="submit" variant="light">Log out</Button>
+                </form>
+              </Navbar.Text>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        <div className="center">
+          <h2>You're logged in!</h2>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand>Authentication App</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              <Button id="form_btn" onClick={update_form_btn} variant="light">Register</Button>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {
+        registrationToggle ? (
+          <div className="center">
+            <Form onSubmit={e => submitRegistration(e)}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        ) : (
+          <div className="center">
+            <Form onSubmit={e => submitLogin(e)}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )
+      }
+    </div>
+  );
 }
 
-const Login = () => {
-  const [form] = Form.useForm();
-
-  const handleSubmit = async (values) => {
-    //try {
-    const response = await fetch('http://localhost:8080/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("data: ", data)
-      if (data.userState === 0) {
-        message.error("Account has been blocked!")
-      }
-
-      else {
-        // 登录成功
-        // 重置表单
-        form.resetFields();
-        message.success("Logged in successfully!")
-
-        currentUser.userID = data.userId
-        currentUser.username = values.username
-        currentUser.password = values.password
-        currentUser.role = data.role            // role: 0=>普通用户 1=>管理员
-        sessionStorage.setItem('currentUser', JSON.stringify(currentUser))
-
-        console.log("currentUser: ", currentUser)
-        setTimeout(() => {
-          window.location.replace('/root/homePage')
-        }, 1000);
-        //window.location.replace('/root/homePage')
-      }
-    }
-    else {
-      // 登录失败
-      // 处理错误信息
-      console.log(response.status)
-      if (response.status === HttpStatusCode.Conflict) {
-        message.error("Wrong username or password!")
-      }
-      else if (response.status === HttpStatusCode.Unauthorized) {
-        message.error("User not exist!")
-      }
-
-      console.log(currentUser)
-    }
-    //}
-    //catch (error) {
-    // 处理异常
-    // ...
-    //    console.log(currentUser)
-    //}
-  };
-
-  return (
-    <Card
-      // title={"Log In"}
-      style={{ width: 450, height: 265, margin: "auto", top: 20 }}
-    >
-      <Form form={form} onFinish={handleSubmit} align={"center"}>
-        <Form.Item name="username" label="Username" rules={[{ required: true, message: 'Please input your username!' }]}>
-          <Input
-            rootClassName={"Username"}
-            size="large"
-            placeholder="Username"
-            prefix={<UserOutlined />}
-            style={{ width: 300 }}
-          />
-        </Form.Item>
-        <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Please input your password!' }]}>
-          <Input.Password
-            rootClassName={"Password"}
-            size="large"
-            placeholder="Password"
-            prefix={<LockOutlined />}
-            style={{ width: 300 }}
-            visibilityToggle={true}
-          />
-        </Form.Item>
-        <Form.Item>
-          <Button size={"large"} htmlType="submit">Login</Button>
-        </Form.Item>
-      </Form>
-    </Card>
-  );
-};
-
 export default Login;
-
-
