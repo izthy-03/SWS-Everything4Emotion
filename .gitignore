@@ -3,6 +3,7 @@
 #python bytecode file
 **/*.pyc    
 __pycache__/
+.pyc
 
 #staitc file
 /static/**
