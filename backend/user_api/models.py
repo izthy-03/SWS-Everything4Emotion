@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from songs.models import Songs
 
 class AppUserManager(BaseUserManager):
 	def create_user(self, email, password=None):
@@ -31,5 +32,6 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['username']
 	objects = AppUserManager()
+	FavoriteSongs = models.ManyToManyField(Songs)
 	def __str__(self):
 		return self.username

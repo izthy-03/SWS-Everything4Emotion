@@ -25,12 +25,21 @@ SECRET_KEY = 'django-insecure-&pf_+7dmdk(%p82sf!8qy^7cg0y)4mll!m@*+s2o$py0__+x0+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = [
+    "*",
+]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://0.0.0.0',
+]
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+    'songs',
+    'user_api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,8 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
-    'songs'
 ]
 
 MIDDLEWARE = [
@@ -53,8 +60,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ORIGIN_ALLOW_ALL = True
+
 ROOT_URLCONF = 'backend.urls'
+#Reverse accessor for ‘User.groups’ clashes with reverse accessor for ‘User.groups’.
+AUTH_USER_MODEL = 'user_api.AppUser'
 
 TEMPLATES = [
     {
