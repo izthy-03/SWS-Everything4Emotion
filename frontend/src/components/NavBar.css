@@ -26,3 +26,8 @@
 .NavBar-link+.NavBar-link {
     margin-left: var(--m);
 }
+
+.NavBar-avatar {
+    text-align: right;
+    margin-left: 1000;
+}

@@ -16,7 +16,8 @@ const TextCard = (props) => {
 
   useEffect(() => {
     // console.log(props.content);
-    setText(sessionStorage.getItem("lastRes"));
+    let content = props.content;
+    setText(content === null ? "" : content);
   }, []);
 
   return (
@@ -26,7 +27,9 @@ const TextCard = (props) => {
           width: 800,
         }}
       >
-        {props.content.split('\n').map((line) => (<p>{line}</p>))}
+        {props.content !== null ?
+          props.content.split('\n').map((line) => (<p>{line}</p>))
+          : ""}
       </Card>
 
     </div>

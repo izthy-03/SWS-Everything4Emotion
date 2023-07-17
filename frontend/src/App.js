@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 import NavBar from "./components/NavBar";
 import InputPage from './pages/InputPage';
 import Feed from "./pages/Feed";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 import './App.css';
@@ -20,6 +21,7 @@ const App = () => {
         <Router>
           <InputPage path="/" />
           <Feed path="/feed/" />
+          <Login path="/login/" />
           <NotFound default />
         </Router>
       </div>

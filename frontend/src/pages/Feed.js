@@ -41,7 +41,7 @@ const Feed = () => {
   return (
     <>
       <TextCard content={res} />
-      <ReactJkMusicPlayer />
+      <ReactJkMusicPlayer mode="full" />
     </>
   );
 }
