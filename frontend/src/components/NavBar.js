@@ -22,8 +22,8 @@ const NavBar = () => {
         <Link to="/login/" className="NavBar-link">
           Login
         </Link>
-        <MyAvatar style={{ margin: "1000" }} />
       </div>
+      <MyAvatar />
     </nav>
   );
 };

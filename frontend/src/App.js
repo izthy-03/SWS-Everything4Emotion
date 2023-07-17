@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 
 import './App.css';
 import "./utilities.css"
+import './pages/Login.css'
 
 const App = () => {
 
@@ -17,14 +18,14 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <div className="App">
-        <Router>
-          <InputPage path="/" />
-          <Feed path="/feed/" />
-          <Login path="/login/" />
-          <NotFound default />
-        </Router>
-      </div>
+      {/* <div className="App"> */}
+      <Router>
+        <InputPage path="/" />
+        <Feed path="/feed/" />
+        <Login path="/login/" />
+        <NotFound default />
+      </Router>
+      {/* </div> */}
     </>
   );
 }

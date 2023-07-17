@@ -6,9 +6,10 @@ const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg
 const MyAvatar = (props) => {
 
   return (
-    <Space size={16} wrap>
-      <Avatar icon={<UserOutlined />} />
-      <Avatar>U</Avatar>
+    <div>
+      <Space size={16} wrap>
+        <Avatar icon={<UserOutlined />} />
+        {/* <Avatar>U</Avatar>
       <Avatar size={40}>USER</Avatar>
       <Avatar src={url} />
       <Avatar src={<img src={url} alt="avatar" />} />
@@ -25,8 +26,10 @@ const MyAvatar = (props) => {
           backgroundColor: '#87d068',
         }}
         icon={<UserOutlined />}
-      />
-    </Space>
+      /> */}
+      </Space >
+    </div>
+
   );
 };
 

@@ -4,6 +4,7 @@ import SongPeriod from "../components/SongPeriod";
 import Singer from "../components/Singer";
 import AnyText from "../components/AnyText";
 import Submit from "../components/Submit";
+import NavBar from "../components/NavBar";
 
 const InputPage = () => {
 
@@ -31,6 +32,7 @@ const InputPage = () => {
 
   return (
     <div>
+      {/* <NavBar /> */}
       <MoodList onChange={setMood} />
       <SongPeriod onChange={setPeriod} />
       <Singer onChange={setSinger} />
