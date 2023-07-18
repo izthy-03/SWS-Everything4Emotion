@@ -48,5 +48,10 @@ class UserView(APIView):
 	##
 	def get(self, request):
 		serializer = UserSerializer(request.user)
-		return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+		print(f"request.user \ntype: {type(request.user)}\n, request {request.user}\n")
+		response = {
+			'user': serializer.data, 
+    		'favorite songs': request.user.FavoriteSongs.all()
+		}
+		return Response(response, status=status.HTTP_200_OK)
 
