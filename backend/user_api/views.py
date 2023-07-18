@@ -3,6 +3,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer
+from songs.models import Songs
 from rest_framework import permissions, status
 from .validations import custom_validation, validate_username, validate_password
 
@@ -21,7 +22,7 @@ class UserRegister(APIView):
 
 class UserLogin(APIView):
 	permission_classes = (permissions.AllowAny,)
-	authentication_classes = (SessionAuthentication,)
+	#authentication_classes = (SessionAuthentication,)
 	##
 	def post(self, request):
 		data = request.data
@@ -47,11 +48,27 @@ class UserView(APIView):
 	authentication_classes = (SessionAuthentication,)
 	##
 	def get(self, request):
-		serializer = UserSerializer(request.user)
+		userserializer = UserSerializer(request.user)
+		#songserializer = SongSerializer(request.user.FavoriteSongs.all())
 		print(f"request.user \ntype: {type(request.user)}\n, request {request.user}\n")
 		response = {
-			'user': serializer.data, 
-    		'favorite songs': request.user.FavoriteSongs.all()
+			'user': userserializer.data
+    		#'favorite songs': songserializer.data
 		}
 		return Response(response, status=status.HTTP_200_OK)
 
+class UserLike(APIView):
+	permission_classes = (permissions.IsAuthenticated,)
+	authentication_classes = (SessionAuthentication,)
+	def post(self, request):
+		userserializer = UserSerializer(request.user)
+		#songserializer = SongSerializer(request.user.FavoriteSongs.all())
+		print(f"request \nrequest {request.data}\n user {request.user}")	
+		user = request.user
+		song = Songs.objects.get(name=request.data['song'])
+		user.favoritesongs.add(song)
+		response = {
+			'user': userserializer.data
+    		#'favorite songs': songserializer.data
+		}
+		return Response(response, status=status.HTTP_200_OK)

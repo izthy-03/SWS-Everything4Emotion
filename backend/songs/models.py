@@ -4,6 +4,8 @@ SongTypes = [('None', 'None'),('pop','pop'), ('rock','rock'),('hiphop','hip hop'
 moodTypes = [('happy','happy'), ('confused','confused'), ('proud','proud'), ('relaxed','relaxed'), ('unamused','unameused')]
 # Create your models here.
 class Songs(models.Model):
+    #should be unique
+    #songid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     period = models.DateField(blank=True)
     singer = models.CharField(max_length=100)

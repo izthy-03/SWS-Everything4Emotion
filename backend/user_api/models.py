@@ -32,6 +32,6 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['username']
 	objects = AppUserManager()
-	FavoriteSongs = models.ManyToManyField(Songs)
+	favoritesongs = models.ManyToManyField(Songs)
 	def __str__(self):
 		return self.username

@@ -8,6 +8,7 @@ class SongSerializer(serializers.ModelSerializer):
     singer = serializers.CharField(required=True)
     style = serializers.CharField(required=False)
     mood = serializers.CharField(required=False)
+    #songid = serializers.IntegerField(required=False)
     class Meta:
         model = Songs
         fields = ['name', 'period', 'singer', 'style', 'mood']
