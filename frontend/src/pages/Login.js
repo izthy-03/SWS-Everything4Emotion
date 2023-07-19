@@ -12,6 +12,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
+
 const client = axios.create({
   baseURL: "http://127.0.0.1:8000"
 });
@@ -24,13 +25,29 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const setUser = (flag) => {
+    setCurrentUser(flag);
+    if (!flag) {
+      sessionStorage.removeItem("userInfo");
+    }
+    else {
+      let userInfo = {
+        email: email,
+        username: username
+      }
+      sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    }
+  }
+
   useEffect(() => {
     get("http://127.0.0.1:8000/users/user")
       .then(function (res) {
-        setCurrentUser(true);
+        console.log(res);
+        setUser(true);
       })
       .catch(function (error) {
-        setCurrentUser(false);
+        console.log("no login");
+        setUser(false);
       });
   }, []);
 
@@ -61,7 +78,7 @@ const Login = () => {
           password: password
         }
       ).then(function (res) {
-        setCurrentUser(true);
+        setUser(true);
       });
     });
   }
@@ -75,7 +92,7 @@ const Login = () => {
         password: password
       }
     ).then(function (res) {
-      setCurrentUser(true);
+      setUser(true);
     });
   }
 
@@ -85,7 +102,7 @@ const Login = () => {
       "http://127.0.0.1:8000/users/logout",
       { withCredentials: true }
     ).then(function (res) {
-      setCurrentUser(false);
+      setUser(false);
     });
   }
 
