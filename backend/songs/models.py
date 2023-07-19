@@ -11,6 +11,7 @@ class Songs(models.Model):
     singer = models.CharField(max_length=100)
     style = models.CharField(choices=SongTypes, default='None', max_length=20)
     mood = models.CharField(choices=moodTypes, default='happy', max_length=20)
+    databaseID = models.IntegerField()
     def __str__(self):
         return self.name
     

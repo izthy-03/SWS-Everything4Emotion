@@ -3,11 +3,14 @@ from django.http import Http404
 
 from .serializers import SongSerializer, QuerySerializer
 from .models import Songs, Queries
+from user_api.models import AppUser
 from externalAPI.chatGPT import gpt_35_api_non_stream as gpt
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import permissions
+from rest_framework.authentication import SessionAuthentication
 
 
 # just list ???
@@ -25,8 +28,10 @@ class SongList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+#GPT -> mood period singer etc, --> filter --> recommend
 class QueryList(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
     def get(self, request, format=None):
         query = Queries.objects.all()
         serializer = QuerySerializer(query, many=True, context={"request": request})
@@ -34,17 +39,23 @@ class QueryList(APIView):
 
     def post(self, request, format=None):
         serializer = QuerySerializer(data=request.data, context={"request": request})
+        user = request.user
         if serializer.is_valid():
-            result = gpt(serializer.data["text"])
-            print(request.data, serializer.validated_data)
-            if result[0] == True:
-                return Response(result[1], status=status.HTTP_201_CREATED)
-            # .save()
-            else:
-                return Response(
-                    "chatGPT service error",
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                )
+            #result = gpt(serializer.data["text"])
+            print(request.data, serializer.validated_data) 
+            songs = Songs.objects.filter(appuser=user)
+            if songs.exists() and request.data.get('mood'):
+                songs = songs.filter(mood=request.data['mood'])
+            songserilizer = SongSerializer(songs[:2], many=True)
+            return Response(songserilizer.data, status=status.HTTP_200_OK)
+            # if result[0] == True:
+            #     return Response(result[1], status=status.HTTP_201_CREATED)
+            # # .save()
+            # else:
+            #     return Response(
+            #         "chatGPT service error",
+            #         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #     )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

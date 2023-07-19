@@ -1,3 +1,5 @@
- - [ ] remove static/ from git
+ - [x] remove static/ from git
  - [ ] add spotify support
  - [ ] add user perferred data
+ - [ ] discuss the interaction with database
+ - [ ] connect EC2 with S3

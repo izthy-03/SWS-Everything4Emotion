@@ -6,12 +6,13 @@ class SongSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=True)
     period = serializers.DateField()
     singer = serializers.CharField(required=True)
+    databaseID  = serializers.IntegerField(required=True)
     style = serializers.CharField(required=False)
     mood = serializers.CharField(required=False)
     #songid = serializers.IntegerField(required=False)
     class Meta:
         model = Songs
-        fields = ['name', 'period', 'singer', 'style', 'mood']
+        fields = ['name', 'period', 'singer', 'style', 'mood', 'databaseID']
     def create(self, validated_data):
         if not validated_data.get('style'):
             validated_data['style'] = "None"
@@ -23,6 +24,9 @@ class SongSerializer(serializers.ModelSerializer):
         return  super().create(validated_data)
 
 class QuerySerializer(serializers.ModelSerializer):
+    singer = serializers.CharField(required=False)
+    mood = serializers.CharField(required=False)
+    text = serializers.CharField(required=False)
     class Meta:
         model = Queries
         fields = ['singer', 'mood', 'text']

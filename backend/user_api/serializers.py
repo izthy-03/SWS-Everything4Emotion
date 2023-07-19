@@ -42,7 +42,6 @@ class UserSerializer(serializers.ModelSerializer):
     favoritesongs = serializers.PrimaryKeyRelatedField(
         many=True, required=False, read_only=True
     )
-
     class Meta:
         model = UserModel
         fields = ("email", "username", "favoritesongs")

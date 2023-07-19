@@ -8,12 +8,17 @@ python -m pip  install -r requirements.txt
 ```shell
 python manage.py runserver
 ```
-
+#### 3. start uwsgi
+```shell
+cd path/to/project/
+cd backend
+uwsgi --ini backend_uwsgi.ini 
+```
 
 ### Interface 
 
 1.  **songs/** All songs in the dataset, POST needs name, singer,period(YYYY-MM-DD) 
-2.  **query/** POST needs name, mood, text,
+2.  **query/** availble after login, POST needs name, mood, text, 
 3.  **users/**
     1.  **register/**   need email, username, password 
     2.  **login/**  need email, password
@@ -25,10 +30,13 @@ python manage.py runserver
                 "email":"...",
                 "username":"..."
             },
-            "favoritesongs":{
+            "happy songs":{
                 
-            }
+            },
+            "sad songs": {
+
+            },
+            "..."
         }
     ```
-
     5.  **like/**   POST needs songID.(developping)

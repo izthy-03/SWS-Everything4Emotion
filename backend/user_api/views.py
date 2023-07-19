@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer
 from songs.models import Songs
+from songs.serializers import SongSerializer
 from rest_framework import permissions, status
 from .validations import (
     custom_validation,
@@ -46,7 +47,7 @@ class UserLogout(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
 
-    def post(self, request):
+    def get(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
 
@@ -59,14 +60,18 @@ class UserView(APIView):
     def get(self, request):
         userserializer = UserSerializer(request.user)
         # songserializer = SongSerializer(request.user.FavoriteSongs.all())
-        print(f"request.user \ntype: {type(request.user)}\n, request {request.user}\n")
+
+        user = request.user
+        happysongs = Songs.objects.filter(appuser=user, mood="happy")
+        songserializer = SongSerializer(happysongs, many=True)
+        print(f"request\nuser {request.user}\nsongs: {happysongs.count()}")
         response = {
-            "user": userserializer.data
-            #'favorite songs': songserializer.data
+            "user": userserializer.data,
+            'happy songs': songserializer.data
         }
         return Response(response, status=status.HTTP_200_OK)
 
-
+### need to add song support 
 class UserLike(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
