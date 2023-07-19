@@ -8,8 +8,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 import './App.css';
-import "./utilities.css"
-import './pages/Login.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 

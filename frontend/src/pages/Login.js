@@ -1,11 +1,12 @@
 import './Login.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
+import { get, post, put } from '../utilities'
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -15,7 +16,7 @@ const client = axios.create({
   baseURL: "http://127.0.0.1:8000"
 });
 
-function Login() {
+const Login = () => {
 
   const [currentUser, setCurrentUser] = useState();
   const [registrationToggle, setRegistrationToggle] = useState(false);
@@ -23,9 +24,8 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // check whether login
   useEffect(() => {
-    client.get("/users/user")
+    get("http://127.0.0.1:8000/users/user")
       .then(function (res) {
         setCurrentUser(true);
       })
@@ -34,7 +34,7 @@ function Login() {
       });
   }, []);
 
-  async function update_form_btn() {
+  function update_form_btn() {
     if (registrationToggle) {
       document.getElementById("form_btn").innerHTML = "Register";
       setRegistrationToggle(false);
@@ -44,32 +44,32 @@ function Login() {
     }
   }
 
-  async function submitRegistration(e) {
+  function submitRegistration(e) {
     e.preventDefault();
-    client.post(
-      "/users/register",
+    post(
+      "http://127.0.0.1:8000/users/register",
       {
         email: email,
         username: username,
         password: password
       }
-    ).then(async (res) => {
-      client.post(
-        "/users/login",
+    ).then(function (res) {
+      post(
+        "http://127.0.0.1:8000/users/login",
         {
           email: email,
           password: password
         }
-      ).then(async (res) => {
+      ).then(function (res) {
         setCurrentUser(true);
       });
     });
   }
 
-  async function submitLogin(e) {
+  function submitLogin(e) {
     e.preventDefault();
-    client.post(
-      "/users/login",
+    post(
+      "http://127.0.0.1:8000/users/login",
       {
         email: email,
         password: password
@@ -79,15 +79,16 @@ function Login() {
     });
   }
 
-  async function submitLogout(e) {
+  function submitLogout(e) {
     e.preventDefault();
-    client.post(
-      "/users/logout",
+    post(
+      "http://127.0.0.1:8000/users/logout",
       { withCredentials: true }
     ).then(function (res) {
       setCurrentUser(false);
     });
   }
+
 
   if (currentUser) {
     return (
@@ -115,7 +116,7 @@ function Login() {
     <div>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Authentication App</Navbar.Brand>
+          <Navbar.Brand>Authentication</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>

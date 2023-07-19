@@ -31,3 +31,8 @@
     text-align: right;
     margin-left: 1000;
 }
+
+.NavBar-line {
+    display: flex;
+    justify-content: space-between;
+}

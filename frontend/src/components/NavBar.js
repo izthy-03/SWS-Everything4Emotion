@@ -10,21 +10,29 @@ import "../utilities.css"
  */
 const NavBar = () => {
   return (
-    <nav className="NavBar-container">
-      <div className="NavBar-title u-inlineBlock">Every4Emotion</div>
-      <div className="NavBar-linkContainer u-inlineBlock">
-        <Link to="/" className="NavBar-link">
-          Mood
-        </Link>
-        <Link to="/feed/" className="NavBar-link">
-          Feed
-        </Link>
-        <Link to="/login/" className="NavBar-link">
-          Login
-        </Link>
+    <nav className="NavBar-container NavBar-line">
+
+      <div>
+        <div className="NavBar-title u-inlineBlock">Every4Emotion</div>
+        <div className="NavBar-linkContainer u-inlineBlock">
+          <Link to="/" className="NavBar-link">
+            Mood
+          </Link>
+          <Link to="/feed/" className="NavBar-link">
+            Feed
+          </Link>
+          <Link to="/login/" className="NavBar-link">
+            Login
+          </Link>
+        </div>
       </div>
-      <MyAvatar />
-    </nav>
+
+      <div>
+        <MyAvatar />
+      </div>
+
+
+    </nav >
   );
 };
 
