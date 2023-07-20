@@ -90,3 +90,13 @@ export async function put(endpoint, params = {}) {
   //   throw `PUT request to ${endpoint} failed with error:\n${error}`;
   // });
 }
+
+
+export function getCSRFTokenFromCookie() {
+  const cookieValue = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('csrftoken='))
+    .split('=')[1];
+
+  return cookieValue;
+}

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { get, post, put } from "../utilities";
 import TextCard from "../components/TextCard";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
-import NavBar from "../components/NavBar";
+import axios from "axios";
+import { getCSRFTokenFromCookie } from "../utilities";
 
 import "./Feed.css"
 import "../utilities.css"
+
+import { client } from "./Login";
+
+
 
 const Feed = () => {
 
@@ -24,12 +28,14 @@ const Feed = () => {
     console.log("nowReq:\n", bodyStr);
     // same as last submit or no another submit
     if (bodyStr !== lastReqStr) {
-      post('http://127.0.0.1:8000/query/', body)
-        .then(data => {
-          console.log("new fetch:\n", data);
-          setRes(data);
+      client.post(
+        "/query/", body
+      )
+        .then((res) => {
+          console.log("new fetch:\n", res);
+          setRes(res.data);
           sessionStorage.setItem("lastReq", bodyStr);
-          sessionStorage.setItem("lastRes", data);
+          sessionStorage.setItem("lastRes", res.data);
         })
         .catch((err) => { console.log(err) });
     }

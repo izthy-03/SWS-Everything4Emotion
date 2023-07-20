@@ -11,11 +11,9 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: "http://localhost:8000"
 });
-
-
 
 const Login = () => {
 
@@ -25,31 +23,32 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const setUser = (flag) => {
-    setCurrentUser(flag);
-    if (!flag) {
-      sessionStorage.removeItem("userInfo");
+  const setUser = (_email, _username) => {
+    let userInfo = {
+      email: _email,
+      username: _username,
     }
-    else {
-      let userInfo = {
-        email: email,
-        username: username
-      }
-      sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
-    }
+    console.log("userInfo update:", JSON.stringify(userInfo));
+    sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
   }
 
   useEffect(() => {
+
     client.get("/users/user")
-      .then(function (res) {
-        console.log(res);
-        setUser(true);
+      .then((res) => {
+        console.log("now logged in user: ", res);
+        setUser(
+          res.data.user.email,
+          res.data.user.username
+        );
+        setCurrentUser(true);
       })
       .catch(function (error) {
         console.log("no login");
-        setUser(false);
+        setUser("", "");
+        setCurrentUser(false);
       });
-  }, []);
+  }, [currentUser]);
 
   function update_form_btn() {
     if (registrationToggle) {
@@ -77,8 +76,12 @@ const Login = () => {
           email: email,
           password: password,
         }
-      ).then(function (res) {
-        setUser(true);
+      ).then((res) => {
+        setCurrentUser(true);
+        setUser(
+          res.data.email,
+          res.data.username
+        );
       });
     });
   }
@@ -93,18 +96,22 @@ const Login = () => {
         withCredentials: true
       }
     ).then((res) => {
-      setUser(true);
-
+      setCurrentUser(true);
+      console.log(res);
+      setUser(
+        res.data.email,
+        res.data.username
+      );
     });
   }
 
   function submitLogout(e) {
     e.preventDefault();
-    client.post(
-      "/users/logout",
-      { withCredentials: true }
+    client.get(
+      "/users/logout"
     ).then(function (res) {
-      setUser(false);
+      setCurrentUser(false);
+      setUser("", "");
     });
   }
 
@@ -194,4 +201,3 @@ const Login = () => {
 }
 
 export default Login;
-
