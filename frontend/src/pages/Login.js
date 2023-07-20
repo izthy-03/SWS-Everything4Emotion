@@ -6,16 +6,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import { get, post, put } from '../utilities'
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-
 const client = axios.create({
-  baseURL: "http://127.0.0.1:8000"
+  baseURL: "http://localhost:8000"
 });
+
+
 
 const Login = () => {
 
@@ -40,7 +40,7 @@ const Login = () => {
   }
 
   useEffect(() => {
-    get("http://127.0.0.1:8000/users/user")
+    client.get("/users/user")
       .then(function (res) {
         console.log(res);
         setUser(true);
@@ -63,19 +63,19 @@ const Login = () => {
 
   function submitRegistration(e) {
     e.preventDefault();
-    post(
-      "http://127.0.0.1:8000/users/register",
+    client.post(
+      "/users/register",
       {
         email: email,
         username: username,
         password: password
       }
     ).then(function (res) {
-      post(
-        "http://127.0.0.1:8000/users/login",
+      client.post(
+        "/users/login",
         {
           email: email,
-          password: password
+          password: password,
         }
       ).then(function (res) {
         setUser(true);
@@ -85,21 +85,23 @@ const Login = () => {
 
   function submitLogin(e) {
     e.preventDefault();
-    post(
-      "http://127.0.0.1:8000/users/login",
+    client.post(
+      "/users/login",
       {
         email: email,
-        password: password
+        password: password,
+        withCredentials: true
       }
-    ).then(function (res) {
+    ).then((res) => {
       setUser(true);
+
     });
   }
 
   function submitLogout(e) {
     e.preventDefault();
-    post(
-      "http://127.0.0.1:8000/users/logout",
+    client.post(
+      "/users/logout",
       { withCredentials: true }
     ).then(function (res) {
       setUser(false);
@@ -192,3 +194,4 @@ const Login = () => {
 }
 
 export default Login;
+
