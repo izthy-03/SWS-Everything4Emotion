@@ -1,10 +1,16 @@
 #!/bin/sh
-export RDS_HOSTNAME=webdatabase.ccrtawu91aoe.us-east-1.rds.amazonaws.com
+sudo apt install pkg-config
+sudo apt install python3-dev default-libmysqlclient-dev build-essential
+export MYSQLCLIENT_LDFLAGS=$(pkg-config --libs mysqlclient)
+export MYSQLCLIENT_CFLAGS=$(pkg-config --cflags mysqlclient)
+pip install mysqlclient
+
+export RDS_HOSTNAME=database-1.ccrtawu91aoe.us-east-1.rds.amazonaws.com
 
 export RDS_PORT=3306
 
-export RDS_DB_NAME=webdatabase
+export RDS_DB_NAME=mysql
 
-export RDS_USERNAME=wpadmin
+export RDS_USERNAME=admin
 
-export RDS_PASSWORD=sws3004-wp
+export RDS_PASSWORD=12345678
