@@ -4,7 +4,7 @@ uid = www-data
 gid = www-data
 # Django-related settings
 # the base directory (full path)
-chdir           = /home/ubuntu/SWS-Everything4Emotion/backend
+chdir           = /home/lsh/project/django/2023sg/SWS-Everything4Emotion/backend
 # Django's wsgi file
 module          = backend.wsgi
 # the virtualenv (full path)
@@ -23,4 +23,4 @@ chmod-socket    = 777
 vacuum          = true
 # create a pidfile
 safe-pidfile = /tmp/project-master.pid 
-daemonize = /home/ubuntu/uwsgi-emperor.log
+daemonize = /home/lsh/uwsgi-emperor.log

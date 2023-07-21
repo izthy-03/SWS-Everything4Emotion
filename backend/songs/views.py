@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import Http404
 
-from .serializers import SongSerializer, QuerySerializer
+from .serializers import SongSerializer, QuerySerializer, SpotifySongsSerializer
 from .models import Songs, Queries
 from user_api.models import AppUser
 from externalAPI.chatGPT import gpt_35_api_non_stream as gpt
+from externalAPI.spotify import Spotify 
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
@@ -43,11 +44,14 @@ class QueryList(APIView):
         if serializer.is_valid():
             #result = gpt(serializer.data["text"])
             print(request.data, serializer.validated_data) 
-            songs = Songs.objects.filter(appuser=user)
-            if songs.exists() and request.data.get('mood'):
-                songs = songs.filter(mood=request.data['mood'])
-            songserilizer = SongSerializer(songs[:2], many=True)
-            return Response(songserilizer.data, status=status.HTTP_200_OK)
+            # songs = Songs.objects.filter(appuser=user)
+            # if songs.exists() and request.data.get('mood'):
+            #     songs = songs.filter(mood=request.data['mood'])
+            # songserializer = SongSerializer(songs[:2], many=True)
+
+            tracks = Spotify(request.data['mood'])
+            songserializer = SpotifySongsSerializer(tracks, many = True)
+            return Response(songserializer.data, status=status.HTTP_200_OK)
             # if result[0] == True:
             #     return Response(result[1], status=status.HTTP_201_CREATED)
             # # .save()

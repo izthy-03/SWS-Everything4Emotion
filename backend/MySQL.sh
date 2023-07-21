@@ -5,11 +5,11 @@ export MYSQLCLIENT_LDFLAGS=$(pkg-config --libs mysqlclient)
 export MYSQLCLIENT_CFLAGS=$(pkg-config --cflags mysqlclient)
 pip install mysqlclient
 
-export RDS_HOSTNAME=database-1.ccrtawu91aoe.us-east-1.rds.amazonaws.com
+export RDS_HOSTNAME=backend.ccrtawu91aoe.us-east-1.rds.amazonaws.com
 
 export RDS_PORT=3306
 
-export RDS_DB_NAME=mysql
+export RDS_DB_NAME=backend
 
 export RDS_USERNAME=admin
 

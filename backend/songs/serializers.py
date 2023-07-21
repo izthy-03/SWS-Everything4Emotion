@@ -23,6 +23,16 @@ class SongSerializer(serializers.ModelSerializer):
         print(f"validated_data\ntype: {type(validated_data)}\ndata: {validated_data}")
         return  super().create(validated_data)
 
+class SpotifySongsSerializer(serializers.ModelSerializer):
+    preview_url = serializers.URLField()
+    external_urls = serializers.URLField()
+    name = serializers.CharField()
+    id = serializers.CharField()
+    class Meta:
+        model = Songs
+        fields = ['name', 'id', 'external_urls', 'preview_url']
+        
+
 class QuerySerializer(serializers.ModelSerializer):
     singer = serializers.CharField(required=False)
     mood = serializers.CharField(required=False)
