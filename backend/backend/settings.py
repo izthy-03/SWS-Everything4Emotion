@@ -39,8 +39,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://0.0.0.0",
     "http://54.221.196.142",
 ]
-SESSION_COOKIE_SAMESITE = False
-CSRF_COOKIE_SAMESITE = False
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
