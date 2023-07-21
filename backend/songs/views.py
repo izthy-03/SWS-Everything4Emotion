@@ -42,13 +42,13 @@ class QueryList(APIView):
         serializer = QuerySerializer(data=request.data, context={"request": request})
         user = request.user
         if serializer.is_valid():
-            #result = gpt(serializer.data["text"])
+            result = gpt(serializer.data["mood"])
             print(request.data, serializer.validated_data) 
             # songs = Songs.objects.filter(appuser=user)
             # if songs.exists() and request.data.get('mood'):
             #     songs = songs.filter(mood=request.data['mood'])
             # songserializer = SongSerializer(songs[:2], many=True)
-
+            
             tracks = Spotify(request.data['mood'])
             songserializer = SpotifySongsSerializer(tracks, many = True)
             return Response(songserializer.data, status=status.HTTP_200_OK)

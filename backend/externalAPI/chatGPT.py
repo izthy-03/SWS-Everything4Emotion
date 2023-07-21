@@ -41,18 +41,45 @@ def gpt_35_api_non_stream(context: str)->tuple:
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", 
                                               messages=[{
                                                   "role": "user", 
-                                                  "content": "please suggest three songs for me according the key word following:" +context 
+                                                  "content": "please suggest three songs for me according to word following:" + context 
                                                   +"with Json format and no any other word"
                                                   }]
                                             )
-        return (True, completion.choices[0].message.content)
+        song_names = []
+        singer_names = []
+        # Extract song names and singer names from each line
+        for line in lines:
+            if line.strip():
+                parts = line.strip().split(' by ')
+                if len(parts) == 2:
+                    song_names.append(parts[0][4:-1])  # Remove the leading number and quotes
+                    singer_names.append(parts[1])
+        return (True, song_names)
     except Exception as err:
         return (False, f'OpenAI API 异常: {err}')
 
 if __name__ == '__main__':
     context = "Happy"
-    result = gpt_35_api_non_stream(context=context)
-    print(result)
+    input_string = gpt_35_api_non_stream(context=context)[1]
+    # Split the input_string into individual lines
+    lines = input_string.split('\n')
+
+    # Initialize lists to store song names and singer names
+    song_names = []
+    singer_names = []
+
+    # Extract song names and singer names from each line
+    for line in lines:
+        if line.strip():
+            parts = line.strip().split(' by ')
+            if len(parts) == 2:
+                song_names.append(parts[0][4:-1])  # Remove the leading number and quotes
+                singer_names.append(parts[1])
+
+    # Print the extracted song names and singer names
+    for idx, (song_name, singer_name) in enumerate(zip(song_names, singer_names), start=1):
+        print(f"{idx}. \"{song_name}\" by {singer_name}")
+
 
     #messages = [{'role': 'user','content': '鲁迅和周树人的关系'},]
     # print(gpt_35_api_stream(messages))

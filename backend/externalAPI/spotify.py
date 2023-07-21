@@ -13,21 +13,21 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 def Spotify(search_keyword:str) -> list:
     # 执行搜索
     results = sp.search(q=search_keyword, type='track', limit=3)
-    print(type(results))
     # 提取搜索结果
     tracks = results['tracks']['items']
+   
+    return tracks
+if __name__ == '__main__':
+    tmp = Spotify(input())
     for key in tracks[0]:
         print(f"key {key}")
     # 打印搜索结果
     for track in tracks:
-        for item in track.items():
-            print(item)
+        for key in track.keys():
+            print(f"{key}:  {track[key]}")
         # print('Track:', track['name'])
         # print('ID:', track['id'])
         # print('Artist:', track['artists'][0]['name'])
         # print('Preview URL:', track['preview_url'])
         # print('External URL:', track['external_urls'])
         print('------------------------')
-    return tracks
-if __name__ == '__main__':
-    tmp = Spotify(input())
