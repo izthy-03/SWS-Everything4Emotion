@@ -20,12 +20,13 @@ def Spotify(search_keyword:str) -> list:
         print(f"key {key}")
     # 打印搜索结果
     for track in tracks:
-
-        print('Track:', track['name'])
-        print('ID:', track['id'])
-        print('Artist:', track['artists'][0]['name'])
-        print('Preview URL:', track['preview_url'])
-        print('External URL:', track['external_urls'])
+        for item in track.items():
+            print(item)
+        # print('Track:', track['name'])
+        # print('ID:', track['id'])
+        # print('Artist:', track['artists'][0]['name'])
+        # print('Preview URL:', track['preview_url'])
+        # print('External URL:', track['external_urls'])
         print('------------------------')
     return tracks
 if __name__ == '__main__':
