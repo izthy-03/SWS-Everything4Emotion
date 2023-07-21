@@ -30,6 +30,8 @@ ALLOWED_HOSTS = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "http://localhost:3000",
