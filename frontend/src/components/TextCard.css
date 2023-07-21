@@ -1,9 +1,16 @@
 .TextCard-container {
-    margin-left: 160px;
-    margin-top: 12px;
+    /* margin-left: 160px; */
+    margin-top: 24px;
     text-align: left;
+    margin-left: 10% !important;
+    /* margin-right: 2% !important; */
+    width: 800px !important;
+}
+
+.ant-card-bordered {
+    margin: auto !important;
 }
 
 .ant-card-body {
-    padding-top: 8px;
+    padding: 8px !important;
 }

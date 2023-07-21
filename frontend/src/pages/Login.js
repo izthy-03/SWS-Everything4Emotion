@@ -82,6 +82,7 @@ const Login = () => {
           res.data.email,
           res.data.username
         );
+        window.location.reload();
       });
     });
   }
@@ -102,17 +103,19 @@ const Login = () => {
         res.data.email,
         res.data.username
       );
-    });
+      window.location.reload();
+    }).catch(err => (console.log(err)));
   }
 
   function submitLogout(e) {
     e.preventDefault();
     client.get(
       "/users/logout"
-    ).then(function (res) {
+    ).then((res) => {
       setCurrentUser(false);
       setUser("", "");
     });
+    window.location.reload();
   }
 
 

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import TextCard from "../components/TextCard";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
-import axios from "axios";
-import { getCSRFTokenFromCookie } from "../utilities";
+import SongList from "../components/SongList";
 
 import "./Feed.css"
 import "../utilities.css"
@@ -14,7 +13,8 @@ import { client } from "./Login";
 
 const Feed = () => {
 
-  const [res, setRes] = useState("");
+  const [res, setRes] = useState();
+  const [songlist, setSonglist] = useState();
 
   useEffect(() => {
 
@@ -33,21 +33,24 @@ const Feed = () => {
       )
         .then((res) => {
           console.log("new fetch:\n", res);
-          setRes(res.data);
+          setRes(res);
+          setSonglist(res.data);
           sessionStorage.setItem("lastReq", bodyStr);
-          sessionStorage.setItem("lastRes", res.data);
+          sessionStorage.setItem("lastRes", JSON.stringify(res));
         })
         .catch((err) => { console.log(err) });
     }
     else {
-      setRes(lastResStr);
+      setRes(JSON.parse(lastResStr));
+      setSonglist(JSON.parse(lastResStr).data);
     }
   }, []);
 
   return (
     <>
       {/* <NavBar /> */}
-      <TextCard content={res} />
+      <TextCard content={JSON.stringify(songlist)} />
+      <SongList list={JSON.stringify(songlist)} />
       <ReactJkMusicPlayer mode="full" />
     </>
   );

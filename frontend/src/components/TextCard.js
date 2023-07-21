@@ -27,9 +27,11 @@ const TextCard = (props) => {
           width: 800,
         }}
       >
-        {props.content !== null ?
+        {/* {props.content !== null ?
           props.content.split('\n').map((line) => (<p>{line}</p>))
-          : ""}
+          : ""} */}
+        {/* {props.content} */}
+        Songs recommended for you
       </Card>
 
     </div>
