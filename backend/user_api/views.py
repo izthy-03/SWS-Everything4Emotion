@@ -53,8 +53,8 @@ class UserLogout(APIView):
 
 
 class UserView(APIView):
-   # permission_classes = (permissions.IsAuthenticated,)
-#   authentication_classes = (SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
 
     ##
     def get(self, request):
@@ -73,8 +73,8 @@ class UserView(APIView):
 
 ### need to add song support 
 class UserLike(APIView):
-   # permission_classes = (permissions.IsAuthenticated,)
-   # authentication_classes = (SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
 
     def post(self, request):
         userserializer = UserSerializer(request.user)
