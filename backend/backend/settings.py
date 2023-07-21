@@ -30,9 +30,21 @@ ALLOWED_HOSTS = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["*",
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://127.0.0.1",
+    "http://127.0.0.1:3000",
+    "http://0.0.0.0",
+    "http://54.221.196.142",
 ]
-CSRF_TRUSTED_ORIGINS = ["*",
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://127.0.0.1",
+    "http://127.0.0.1:3000",
+    "http://0.0.0.0",
+    "http://54.221.196.142",
 ]
 # Application definition
 
