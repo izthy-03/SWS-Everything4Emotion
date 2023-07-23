@@ -38,10 +38,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://0.0.0.0",
     "http://54.221.196.142",
+    "https://sws3004emotioncloud.net",
 ]
-SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_DOMAIN = "54.221.196.142"
-CSRF_COOKIE_SAMESITE = "None"
+#SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_DOMAIN = "https://sws3004emotioncloud.net"
+#CSRF_COOKIE_SAMESITE = "None"
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
@@ -50,7 +51,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://0.0.0.0",
     "http://54.221.196.142",
-    "http://*"
+    "https://sws3004emotioncloud.net",
 ]
 # Application definition
 
