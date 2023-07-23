@@ -35,14 +35,15 @@ class SongList(APIView):
 
 #GPT -> mood period singer etc, --> filter --> recommend
 class QueryList(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    #permission_classes = (permissions.IsAuthenticated,)
+    #authentication_classes = (SessionAuthentication,)
     def get(self, request, format=None):
         query = Queries.objects.all()
         serializer = QuerySerializer(query, many=True, context={"request": request})
         return Response(serializer.data)
 
-    @method_decorator(csrf_exempt)
+    #@method_decorator(csrf_exempt)
     def post(self, request, format=None):
         serializer = QuerySerializer(data=request.data, context={"request": request})
         user = request.user
