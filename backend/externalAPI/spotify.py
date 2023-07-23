@@ -12,12 +12,13 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 # 定义搜索关键词
 def Spotify(search_keyword:str) -> list:
     # 执行搜索
-    results = sp.search(q=search_keyword, type='track', limit=3)
+    results = sp.search(q=search_keyword, type='track', limit=1)
     # 提取搜索结果
     tracks = results['tracks']['items']
    
     return tracks
 if __name__ == '__main__':
+    tracks = []
     tmp = Spotify(input())
     for key in tracks[0]:
         print(f"key {key}")

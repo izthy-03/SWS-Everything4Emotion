@@ -1,4 +1,5 @@
 import openai
+import json
 
 # openai.log = "debug"
 openai.api_key = "sk-4hyZ60z1KJygFo9WHheYplOoubnxNsOJSlbjI0C5FokiDojL"
@@ -48,43 +49,36 @@ def gpt_35_api_non_stream(context: dict)->tuple:
                                                   "role": "user", 
                                                   "content": "please suggest three songs for me according to what I say:"
                                                   + content  
-                                                  +"with Json format and no any other word"
+                                                  +"with Json format including titles and artist and no any other word"
                                                   }]
-                                            )
+                                            )   
+        print(completion.choices[0].message.content)
+        songs = json.loads(completion.choices[0].message.content)['songs']
+        print(songs)
         song_names = []
-        singer_names = []
         # Extract song names and singer names from each line
-        for line in lines:
-            if line.strip():
-                parts = line.strip().split(' by ')
-                if len(parts) == 2:
-                    song_names.append(parts[0][4:-1])  # Remove the leading number and quotes
-                    singer_names.append(parts[1])
+        # for song in songs:
+        #     if song.strip():
+        #         parts = song.strip().split(' by ')
+        #         if len(parts) == 2:
+        #             song_names.append(parts[0][4:-1])  # Remove the leading number and quotesx 
+        #             singer_names.append(parts[1])
+        for song in songs:
+            song_names.append(song['title'])
         return (True, song_names)
     except Exception as err:
         return (False, f'OpenAI API 异常: {err}')
 
 if __name__ == '__main__':
-    context = "Happy"
-    input_string = gpt_35_api_non_stream(context=context)[1]
+    context = {
+        "mood":"sad",
+        "singer":"Aimer"
+    }
+    song_names = gpt_35_api_non_stream(context=context)
+    print(song_names)
     # Split the input_string into individual lines
-    lines = input_string.split('\n')
-
     # Initialize lists to store song names and singer names
-    song_names = []
-    singer_names = []
 
-    # Extract song names and singer names from each line
-    for line in lines:
-        if line.strip():
-            parts = line.strip().split(' by ')
-            if len(parts) == 2:
-                song_names.append(parts[0][4:-1])  # Remove the leading number and quotes
-                singer_names.append(parts[1])
-
-    # Print the extracted song names and singer names
-    for idx, (song_name, singer_name) in enumerate(zip(song_names, singer_names), start=1):
-        print(f"{idx}. \"{song_name}\" by {singer_name}")
 
 
     #messages = [{'role': 'user','content': '鲁迅和周树人的关系'},]

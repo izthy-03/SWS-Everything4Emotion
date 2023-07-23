@@ -33,7 +33,7 @@ class SongList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#GPT -> mood period singer etc, --> filter --> recommend
+#GPT  --> filter --> recommend
 class QueryList(APIView):
     #permission_classes = (permissions.AllowAny,)
     # permission_classes = (permissions.IsAuthenticated,)
@@ -54,9 +54,10 @@ class QueryList(APIView):
             # if songs.exists() and request.data.get('mood'):
             #     songs = songs.filter(mood=request.data['mood'])
             # songserializer = SongSerializer(songs[:2], many=True)
-            
-            tracks = Spotify(request.data['mood'])
-            songserializer = SpotifySongsSerializer(tracks, many = True)
+            songs = []
+            for song in result:
+                songs.append(Spotify(song)[0])
+            songserializer = SpotifySongsSerializer(songs, many = True)
             return Response(songserializer.data, status=status.HTTP_200_OK)
             # if result[0] == True:
             #     return Response(result[1], status=status.HTTP_201_CREATED)
