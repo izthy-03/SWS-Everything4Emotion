@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Space, Button, Drawer, Radio } from 'antd';
-import axios from 'axios';
 
 import './MyAvatar.css'
 import '../utilities.css'
 
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-  baseURL: "http://localhost:8000"
-});
+import { client } from '../pages/Login';
 
 const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg';
 
