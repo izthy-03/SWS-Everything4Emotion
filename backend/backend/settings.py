@@ -41,7 +41,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://sws3004emotioncloud.net",
 ]
 SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_DOMAIN = "https://sws3004emotioncloud.net"
+SESSION_COOKIE_DOMAIN = "sws3004emotioncloud.net"
 CSRF_COOKIE_SAMESITE = "None"
 
 CSRF_TRUSTED_ORIGINS = [
