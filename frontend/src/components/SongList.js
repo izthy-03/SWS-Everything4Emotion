@@ -24,14 +24,16 @@ const SongList = (props) => {
 
     console.log(props.list);
     console.log(JSON.parse(sessionStorage.getItem("lastRes")).data);
-    setData(JSON.parse(sessionStorage.getItem("lastRes")).data);
+    let newData = JSON.parse(sessionStorage.getItem("lastRes")).data;
+    if (JSON.stringify(data) !== JSON.stringify(newData))
+      setData(JSON.parse(sessionStorage.getItem("lastRes")).data);
     setLoading(false);
   };
 
   useEffect(() => {
     console.log("starting SongList useEffect hook");
     loadMoreData();
-  }, []);
+  }, [data]);
   return (
     <div
       id="scrollableDiv"
@@ -72,6 +74,7 @@ const SongList = (props) => {
           )}
         />
       </InfiniteScroll>
+      {props.list}
     </div>
   );
 };

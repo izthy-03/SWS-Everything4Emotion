@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import TextCard from "../components/TextCard";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
@@ -28,6 +28,7 @@ const Feed = () => {
     // same as last submit or no another submit
     let bodyStr = sessionStorage.getItem("request");
     let body = JSON.parse(sessionStorage.getItem("request"));
+    body = { ...body, csrfmiddlewaretoken: document.csrfmiddlewaretoken };
 
     let lastReqStr = sessionStorage.getItem("lastReq");
     let lastResStr = sessionStorage.getItem("lastRes");
@@ -38,24 +39,24 @@ const Feed = () => {
           setSonglist(res.data);
           sessionStorage.setItem("lastReq", bodyStr);
           sessionStorage.setItem("lastRes", JSON.stringify(res));
-          // .catch ((err) => { console.log(err) });
-        });
 
-      console.log('fetch done');
-      console.log("lastReq:\n", lastReqStr);
-      console.log("nowReq:\n", bodyStr);
+          console.log('fetch done');
+          console.log("lastReq:\n", lastReqStr);
+          console.log("nowReq:\n", bodyStr);
+        }).catch((err) => { console.log(err) });
+
     }
     else {
       // setRes(JSON.parse(lastResStr));
       setSonglist(JSON.parse(lastResStr).data);
     }
-    console.log("Feed useEffect hook ends");
+    console.log("Feed useLayoutEffect hook ends");
   }, []);
 
   return (
     <>
       {console.log("start rendering, songlist: ", songlist)}
-      <TextCard content={songlist} />
+      <TextCard content={JSON.stringify(songlist)} />
       <SongList list={JSON.stringify(songlist)} />
       <ReactJkMusicPlayer mode="full" />
     </>
