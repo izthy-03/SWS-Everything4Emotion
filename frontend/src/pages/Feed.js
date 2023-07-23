@@ -3,6 +3,7 @@ import TextCard from "../components/TextCard";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 import SongList from "../components/SongList";
+import axios from "axios";
 
 import "./Feed.css"
 import "../utilities.css"
@@ -10,46 +11,51 @@ import "../utilities.css"
 import { client } from "./Login";
 
 
-
 const Feed = () => {
 
-  const [res, setRes] = useState();
+  // const [res, setRes] = useState();
   const [songlist, setSonglist] = useState();
 
-  useEffect(() => {
+  const query = (body) => {
+    return client.post("/query/", body)
+      .then((res) => {
+        console.log("new fetch:\n", res);
+        return res;
+      });
+  }
 
+  useEffect(() => {
+    // same as last submit or no another submit
     let bodyStr = sessionStorage.getItem("request");
     let body = JSON.parse(sessionStorage.getItem("request"));
 
     let lastReqStr = sessionStorage.getItem("lastReq");
     let lastResStr = sessionStorage.getItem("lastRes");
-
-    console.log("lastReq:\n", lastReqStr);
-    console.log("nowReq:\n", bodyStr);
-    // same as last submit or no another submit
     if (bodyStr !== lastReqStr) {
-      client.post(
-        "/query/", body
-      )
+      query(body)
         .then((res) => {
-          console.log("new fetch:\n", res);
-          setRes(res);
+          // setRes(res);
           setSonglist(res.data);
           sessionStorage.setItem("lastReq", bodyStr);
           sessionStorage.setItem("lastRes", JSON.stringify(res));
-        })
-        .catch((err) => { console.log(err) });
+          // .catch ((err) => { console.log(err) });
+        });
+
+      console.log('fetch done');
+      console.log("lastReq:\n", lastReqStr);
+      console.log("nowReq:\n", bodyStr);
     }
     else {
-      setRes(JSON.parse(lastResStr));
+      // setRes(JSON.parse(lastResStr));
       setSonglist(JSON.parse(lastResStr).data);
     }
+    console.log("Feed useEffect hook ends");
   }, []);
 
   return (
     <>
-      {/* <NavBar /> */}
-      <TextCard content={JSON.stringify(songlist)} />
+      {console.log("start rendering, songlist: ", songlist)}
+      <TextCard content={songlist} />
       <SongList list={JSON.stringify(songlist)} />
       <ReactJkMusicPlayer mode="full" />
     </>

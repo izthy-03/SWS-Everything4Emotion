@@ -29,6 +29,7 @@ const SongList = (props) => {
   };
 
   useEffect(() => {
+    console.log("starting SongList useEffect hook");
     loadMoreData();
   }, []);
   return (

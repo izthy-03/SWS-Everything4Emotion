@@ -13,6 +13,8 @@ axios.defaults.withCredentials = true;
 
 export const client = axios.create({
   baseURL: "http://localhost:8000"
+  // baseURL: "http://54.221.196.142:8070/"
+  // baseURL: "https://sws3004emotioncloud.net/"
 });
 
 const Login = () => {
@@ -82,7 +84,7 @@ const Login = () => {
           res.data.email,
           res.data.username
         );
-        window.location.reload();
+        // window.location.reload();
       });
     });
   }
@@ -94,7 +96,7 @@ const Login = () => {
       {
         email: email,
         password: password,
-        withCredentials: true
+        // withCredentials: true
       }
     ).then((res) => {
       setCurrentUser(true);
@@ -103,7 +105,7 @@ const Login = () => {
         res.data.email,
         res.data.username
       );
-      window.location.reload();
+      // window.location.reload();
     }).catch(err => (console.log(err)));
   }
 
