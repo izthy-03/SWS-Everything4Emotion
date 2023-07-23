@@ -14,7 +14,7 @@ import { client } from "./Login";
 const Feed = () => {
 
   // const [res, setRes] = useState();
-  const [songlist, setSonglist] = useState();
+  const [songlist, setSonglist] = useState([]);
 
   const query = (body) => {
     return client.post("/query/", body)
@@ -28,7 +28,7 @@ const Feed = () => {
     // same as last submit or no another submit
     let bodyStr = sessionStorage.getItem("request");
     let body = JSON.parse(sessionStorage.getItem("request"));
-    body = { ...body, csrfmiddlewaretoken: document.csrfmiddlewaretoken };
+    // body = { ...body, csrfmiddlewaretoken: document.csrfmiddlewaretoken };
 
     let lastReqStr = sessionStorage.getItem("lastReq");
     let lastResStr = sessionStorage.getItem("lastRes");
@@ -51,6 +51,7 @@ const Feed = () => {
       setSonglist(JSON.parse(lastResStr).data);
     }
     console.log("Feed useLayoutEffect hook ends");
+    console.log(songlist);
   }, []);
 
   return (

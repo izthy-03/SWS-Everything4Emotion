@@ -23,7 +23,7 @@ const SongList = (props) => {
     //   });
 
     console.log(props.list);
-    console.log(JSON.parse(sessionStorage.getItem("lastRes")).data);
+    // console.log(JSON.parse(sessionStorage.getItem("lastRes")).data);
     let newData = JSON.parse(sessionStorage.getItem("lastRes")).data;
     if (JSON.stringify(data) !== JSON.stringify(newData))
       setData(JSON.parse(sessionStorage.getItem("lastRes")).data);
@@ -33,7 +33,7 @@ const SongList = (props) => {
   useEffect(() => {
     console.log("starting SongList useEffect hook");
     loadMoreData();
-  }, [data]);
+  }, []);
   return (
     <div
       id="scrollableDiv"
@@ -60,8 +60,10 @@ const SongList = (props) => {
         endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
         scrollableTarget="scrollableDiv"
       >
+        {/* {console.log("fck", JSON.parse(props.list))} */}
         <List
-          dataSource={data}
+          // dataSource={data}
+          dataSource={JSON.parse(props.list)}
           renderItem={(item) => (
             <List.Item key={item.email}>
               <List.Item.Meta
@@ -74,7 +76,7 @@ const SongList = (props) => {
           )}
         />
       </InfiniteScroll>
-      {props.list}
+
     </div>
   );
 };
