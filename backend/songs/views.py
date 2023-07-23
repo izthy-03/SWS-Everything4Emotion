@@ -43,7 +43,7 @@ class QueryList(APIView):
         serializer = QuerySerializer(query, many=True, context={"request": request})
         return Response(serializer.data)
 
-    #@method_decorator(csrf_exempt)
+    @method_decorator(csrf_exempt)
     def post(self, request, format=None):
         serializer = QuerySerializer(data=request.data, context={"request": request})
         user = request.user
