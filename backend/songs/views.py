@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.views.decorators.csrf import csrf_exempt
 
 from .serializers import SongSerializer, QuerySerializer, SpotifySongsSerializer
 from .models import Songs, Queries
@@ -38,6 +42,7 @@ class QueryList(APIView):
         serializer = QuerySerializer(query, many=True, context={"request": request})
         return Response(serializer.data)
 
+    @method_decorator(csrf_exempt)
     def post(self, request, format=None):
         serializer = QuerySerializer(data=request.data, context={"request": request})
         user = request.user
