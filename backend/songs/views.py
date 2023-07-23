@@ -48,7 +48,7 @@ class QueryList(APIView):
         serializer = QuerySerializer(data=request.data, context={"request": request})
         user = request.user
         if serializer.is_valid():
-            result = gpt(serializer.data["mood"])
+            result = gpt(serializer.data)
             print(request.data, serializer.validated_data) 
             # songs = Songs.objects.filter(appuser=user)
             # if songs.exists() and request.data.get('mood'):

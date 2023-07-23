@@ -36,12 +36,18 @@ def gpt_35_api_stream(messages: list):
     except Exception as err:
         return (False, f'OpenAI API 异常: {err}')
 # just for testing 
-def gpt_35_api_non_stream(context: str)->tuple:
+def gpt_35_api_non_stream(context: dict)->tuple:
+    content = ""
+    if (context.get('mood')):
+        content = content + 'My mood is ' + context['mood'] + 'now.'
+    if (context.get('singer')):
+        content = content + 'My favorite singer is ' + context['singer'] + '.'
     try:
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", 
                                               messages=[{
                                                   "role": "user", 
-                                                  "content": "please suggest three songs for me according to word following:" + context 
+                                                  "content": "please suggest three songs for me according to what I say:"
+                                                  + content  
                                                   +"with Json format and no any other word"
                                                   }]
                                             )
