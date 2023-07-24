@@ -41,25 +41,34 @@ const Feed = () => {
           sessionStorage.setItem("lastRes", JSON.stringify(res));
 
           console.log('fetch done');
-          console.log("lastReq:\n", lastReqStr);
-          console.log("nowReq:\n", bodyStr);
+
         }).catch((err) => { console.log(err) });
 
     }
     else {
       // setRes(JSON.parse(lastResStr));
-      setSonglist(JSON.parse(lastResStr).data);
+      if (lastResStr !== null)
+        setSonglist(JSON.parse(lastResStr).data);
     }
     console.log("Feed useLayoutEffect hook ends");
     console.log(songlist);
+    console.log("lastReq:\n", lastReqStr);
+    console.log("nowReq:\n", bodyStr);
+
   }, []);
 
   return (
     <>
-      {console.log("start rendering, songlist: ", songlist)}
-      <TextCard content={JSON.stringify(songlist)} />
-      <SongList list={JSON.stringify(songlist)} />
-      <ReactJkMusicPlayer mode="full" />
+      {/* {console.log("start rendering, songlist: ", songlist)} */}
+      {
+        sessionStorage.getItem("lastReq") === null ?
+          ("Please submit first !") :
+          <>
+            <TextCard content={JSON.stringify(songlist)} />
+            <SongList list={JSON.stringify(songlist)} />
+            <ReactJkMusicPlayer mode="full" />
+          </>
+      }
     </>
   );
 }

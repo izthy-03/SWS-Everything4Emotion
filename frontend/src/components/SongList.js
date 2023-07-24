@@ -6,7 +6,7 @@ import './SongLIst.css'
 
 const SongList = (props) => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(JSON.parse(props.list));
   const loadMoreData = () => {
     if (loading) {
       return;

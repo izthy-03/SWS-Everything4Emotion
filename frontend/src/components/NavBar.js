@@ -28,6 +28,10 @@ const NavBar = () => {
             Feed
           </Link>
 
+          <a href="https://sws3004emotioncloud.net/video" className="NavBar-link">
+            Face
+          </a>
+
         </div>
       </div>
       <div>
