@@ -12,9 +12,9 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 export const client = axios.create({
-  baseURL: "http://localhost:8000",
+  // baseURL: "http://localhost:8000",
   // baseURL: "http://54.221.196.142:8070/",
-  // baseURL: "https://sws3004emotioncloud.net/backend",
+  baseURL: "https://sws3004emotioncloud.net/backend",
   // headers: { 'XXX-CSRFToken': 'foobar' }
 });
 
