@@ -2,7 +2,7 @@ import json
 
 
 class similar:
-    def __init__(self, jsonfilename) -> None:
+    def __init__(self, jsonfilename="/home/lsh/project/django/2023sg/SWS-Everything4Emotion/backend/externalAPI/similar_songs_details.json") -> None:
         with open(jsonfilename, "rb") as jsonfile:
             self.data = json.load(jsonfile)
             self.map = {}
@@ -19,6 +19,8 @@ class similar:
             for similar_song in self.data[song_id]['similar_songs']:
                ret.append(similar_song['song_name'])
         return ret 
-test = similar("similar_songs_details.json")
-while (1):
-    print(test.match(input()))
+
+if __name__ == "__main__":
+    test = similar("similar_songs_details.json")
+    while (1):
+        print(test.match(input()))

@@ -10,6 +10,7 @@ from .models import Songs, Queries
 from user_api.models import AppUser
 from externalAPI.chatGPT import gpt_35_api_non_stream as gpt
 from externalAPI.spotify import Spotify 
+from externalAPI.similar import similar
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
@@ -21,6 +22,7 @@ from rest_framework.authentication import SessionAuthentication
 # just list ???
 # it depends on whether we allow users to upload their own songs
 class SongList(APIView):
+
     def get(self, request, format=None):
         songs = Songs.objects.all()
         serializer = SongSerializer(songs, many=True, context={"request": request})
@@ -38,6 +40,9 @@ class QueryList(APIView):
     #permission_classes = (permissions.AllowAny,)
     # permission_classes = (permissions.IsAuthenticated,)
     # authentication_classes = (SessionAuthentication,)
+    def __init__ (self):
+        self.similar = similar()
+        return super().__init__()
     def get(self, request, format=None):
         query = Queries.objects.all()
         serializer = QuerySerializer(query, many=True, context={"request": request})
@@ -57,6 +62,11 @@ class QueryList(APIView):
             songs = []
             for song in result:
                 songs.append(Spotify(song)[0])
+            if len(songs) <= 2:
+                for song_name in result:
+                    similar_song = self.similar.match(song_name)
+                    if len(similar_song) > 0:
+                        songs.append(Spotify(similar_song[0]))
             songserializer = SpotifySongsSerializer(songs, many = True)
             return Response(songserializer.data, status=status.HTTP_200_OK)
             # if result[0] == True:

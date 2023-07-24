@@ -43,13 +43,15 @@ def gpt_35_api_non_stream(context: dict)->tuple:
         content = content + 'My mood is ' + context['mood'] + 'now.'
     if (context.get('singer')):
         content = content + 'My favorite singer is ' + context['singer'] + '.'
+    if (context.get('text')):
+        content = content + 'the other information is ' + context['text'] + '.'
     try:
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", 
                                               messages=[{
                                                   "role": "user", 
                                                   "content": "please suggest three songs for me according to what I say:"
                                                   + content  
-                                                  +"with Json format including titles and artist and no any other word"
+                                                  +"with Json format including titles and artist and no any other word."
                                                   }]
                                             )   
         print(completion.choices[0].message.content)
@@ -72,7 +74,8 @@ def gpt_35_api_non_stream(context: dict)->tuple:
 if __name__ == '__main__':
     context = {
         "mood":"sad",
-        "singer":"Aimer"
+        "singer":"Aimer",
+        "text":"I want to listen star dust"
     }
     song_names = gpt_35_api_non_stream(context=context)
     print(song_names)
