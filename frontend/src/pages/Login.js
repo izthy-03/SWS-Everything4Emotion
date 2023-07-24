@@ -85,7 +85,7 @@ const Login = () => {
           res.data.email,
           res.data.username
         );
-        // window.location.reload();
+        window.location.reload();
       });
     });
   }
@@ -106,7 +106,7 @@ const Login = () => {
         res.data.email,
         res.data.username
       );
-      // window.location.reload();
+      window.location.reload();
     }).catch(err => (console.log(err)));
   }
 
