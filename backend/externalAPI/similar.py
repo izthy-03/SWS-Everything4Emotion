@@ -2,7 +2,7 @@ import json
 
 
 class similar:
-    def __init__(self, jsonfilename="/home/lsh/project/django/2023sg/SWS-Everything4Emotion/backend/externalAPI/similar_songs_details.json") -> None:
+    def __init__(self, jsonfilename="/home/ubuntu/SWS-Everything4Emotion/backend/externalAPI") -> None:
         with open(jsonfilename, "rb") as jsonfile:
             self.data = json.load(jsonfile)
             self.map = {}
