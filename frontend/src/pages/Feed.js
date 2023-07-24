@@ -10,11 +10,14 @@ import "../utilities.css"
 
 import { client } from "./Login";
 
+let mylist = [];
+let audioList = [];
 
 const Feed = () => {
 
   // const [res, setRes] = useState();
   const [songlist, setSonglist] = useState([]);
+  const [audioLists, setAudioLists] = useState([]);
 
   const query = (body) => {
     return client.post("/query/", body)
@@ -37,6 +40,7 @@ const Feed = () => {
         .then((res) => {
           // setRes(res);
           setSonglist(res.data);
+          mylist = res.data;
           sessionStorage.setItem("lastReq", bodyStr);
           sessionStorage.setItem("lastRes", JSON.stringify(res));
 
@@ -47,14 +51,25 @@ const Feed = () => {
     }
     else {
       // setRes(JSON.parse(lastResStr));
-      if (lastResStr !== null)
+      if (lastResStr !== null) {
         setSonglist(JSON.parse(lastResStr).data);
+        mylist = JSON.parse(lastResStr).data;
+      }
     }
     console.log("Feed useLayoutEffect hook ends");
-    console.log(songlist);
+    console.log(mylist);
     console.log("lastReq:\n", lastReqStr);
     console.log("nowReq:\n", bodyStr);
 
+    audioList = [];
+    mylist.map((song) => {
+      audioList.push({
+        name: song.name,
+        musicSrc: song.preview_url
+      })
+    });
+    setAudioLists(audioList);
+    console.log("Audios: ", audioList);
   }, []);
 
   return (
@@ -66,7 +81,10 @@ const Feed = () => {
           <>
             <TextCard content={JSON.stringify(songlist)} />
             <SongList list={JSON.stringify(songlist)} />
-            <ReactJkMusicPlayer mode="full" />
+            <ReactJkMusicPlayer
+              mode="full"
+              autoPlay={false}
+              audioLists={audioLists} />
           </>
       }
     </>
