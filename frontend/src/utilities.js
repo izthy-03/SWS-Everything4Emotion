@@ -39,43 +39,64 @@ function convertToJSON(res) {
 
 // Helper code to make a get request. Default parameter of empty JSON Object for params.
 // Returns a Promise to a JSON Object.
-export function get(endpoint, params = {}) {
-  const fullPath = endpoint;
-  if (params.length) {
-    fullPath = endpoint + "?" + formatParams(params);
-  }
-  return fetch(BASE_URL + fullPath)
-    .then(convertToJSON)
-    .catch((error) => {
-      // give a useful error message
-      throw `GET request to ${fullPath} failed with error:\n${error}`;
-    });
-}
-
-// Helper code to make a post request. Default parameter of empty JSON Object for params.
-// Returns a Promise to a JSON Object.
-export function post(endpoint, params = {}) {
+export async function get(endpoint, params = {}) {
+  // const fullPath = endpoint;
+  // if (params.length) {
+  //   fullPath = endpoint + "?" + formatParams(params);
+  // }
+  // return fetch(BASE_URL + fullPath)
+  //   .then(convertToJSON)
+  // .catch((error) => {
+  //   // give a useful error message
+  //   throw `GET request to ${fullPath} failed with error:\n${error}`;
+  // });
   return fetch(BASE_URL + endpoint, {
-    method: "POST",
+    method: "GET",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(params),
   })
     .then(convertToJSON) // convert result to JSON object
-    .catch((error) => {
-      // give a useful error message
-      throw `POST request to ${endpoint} failed with error:\n${error}`;
-    });
+  // .catch((error) => {
+  //   // give a useful error message
+  //   throw `POST request to ${endpoint} failed with error:\n${error}`;
+  // });
 }
 
-export function put(endpoint, params = {}) {
+// Helper code to make a post request. Default parameter of empty JSON Object for params.
+// Returns a Promise to a JSON Object.
+export async function post(endpoint, params = {}) {
+  return fetch(BASE_URL + endpoint, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(params),
+
+  })
+    .then(convertToJSON) // convert result to JSON object
+  // .catch((error) => {
+  //   // give a useful error message
+  //   throw `POST request to ${endpoint} failed with error:\n${error}`;
+  // });
+}
+
+export async function put(endpoint, params = {}) {
   return fetch(BASE_URL + endpoint, {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(params),
   })
     .then(convertToJSON) // convert result to JSON object
-    .catch((error) => {
-      // give a useful error message
-      throw `PUT request to ${endpoint} failed with error:\n${error}`;
-    });
+  // .catch((error) => {
+  //   // give a useful error message
+  //   throw `PUT request to ${endpoint} failed with error:\n${error}`;
+  // });
+}
+
+
+export function getCSRFTokenFromCookie() {
+  const cookieValue = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('csrftoken='))
+    .split('=')[1];
+
+  return cookieValue;
 }

@@ -48,6 +48,10 @@ form {
     justify-content: center;
 }
 
+.u-flex-justifyBetween {
+    justify-content: space-between;
+}
+
 .u-flex-alignCenter {
     align-items: center;
 }

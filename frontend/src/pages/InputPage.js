@@ -6,6 +6,9 @@ import AnyText from "../components/AnyText";
 import Submit from "../components/Submit";
 import NavBar from "../components/NavBar";
 
+import '../utilities.css'
+import './InputPage.css'
+
 const InputPage = () => {
 
   const [mood, setMood] = useState("");
@@ -31,8 +34,8 @@ const InputPage = () => {
   }, [mood, period, singer, text]);
 
   return (
-    <div>
-      <NavBar />
+    <div className="Input">
+      {/* <NavBar /> */}
       <MoodList onChange={setMood} />
       <SongPeriod onChange={setPeriod} />
       <Singer onChange={setSinger} />

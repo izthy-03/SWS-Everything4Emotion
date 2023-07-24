@@ -1,0 +1,23 @@
+
+#emotionTable {
+    margin-top: 1000px;
+    margin-left: -500px;
+  }
+#result-container{
+    margin-top: 1100px;
+    margin-left: 0px;
+}  
+body {
+  background-image: url("back.jpg"); /* 设置背景图像的URL */
+  background-size: cover; /* 调整背景图像大小以填充整个容器 */
+  background-repeat: no-repeat; /* 防止背景图像重复 */
+}
+/* 添加CSS样式来固定按钮的位置 */
+#endRecordingButton {
+  position: absolute;
+  bottom: 20px; /* 调整按钮与底部的距离 */
+  right: 20px; /* 调整按钮与右侧的距离 */
+  z-index: 999; /* 确保按钮位于其他内容上层 */
+  background-color: #ecc61d;
+  color: #e0a01f; /* 设置按钮文本颜色为白色 */
+}

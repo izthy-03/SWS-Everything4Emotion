@@ -15,7 +15,7 @@ const TextCard = (props) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    // console.log(props.content);
+    console.log(props.content);
     let content = props.content;
     setText(content === null ? "" : content);
   }, []);
@@ -27,9 +27,11 @@ const TextCard = (props) => {
           width: 800,
         }}
       >
-        {props.content !== null ?
+        {/* {props.content !== null ?
           props.content.split('\n').map((line) => (<p>{line}</p>))
-          : ""}
+          : ""} */}
+        {/* {props.content} */}
+        Songs recommended for you
       </Card>
 
     </div>

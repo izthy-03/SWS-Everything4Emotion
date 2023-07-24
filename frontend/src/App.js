@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 import './App.css';
-import "./utilities.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 
@@ -16,14 +16,15 @@ const App = () => {
 
   return (
     <>
-      <div className="App">
-        <Router>
-          <InputPage path="/" />
-          <Feed path="/feed/" />
-          <Login path="/login/" />
-          <NotFound default />
-        </Router>
-      </div>
+      <NavBar />
+      {/* <div className="App"> */}
+      <Router>
+        <InputPage path="/" />
+        <Feed path="/feed/" />
+        <Login path="/login/" />
+        <NotFound default />
+      </Router>
+      {/* </div> */}
     </>
   );
 }

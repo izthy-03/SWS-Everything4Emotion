@@ -1,0 +1,10 @@
+.MyAvatar-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.MyAvatar-title {
+    /* flex-grow: 1; */
+    margin: auto;
+    /* margin-left: 10px; */
+}

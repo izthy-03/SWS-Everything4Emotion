@@ -1,22 +1,24 @@
+import './Login.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
-import './Login.css';
+import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-const client = axios.create({
-  baseURL: "http://127.0.0.1:8000"
+export const client = axios.create({
+  baseURL: "http://localhost:8000",
+  // baseURL: "http://54.221.196.142:8070/",
+  // baseURL: "https://sws3004emotioncloud.net/backend",
+  // headers: { 'XXX-CSRFToken': 'foobar' }
 });
 
-function Login() {
+const Login = () => {
 
   const [currentUser, setCurrentUser] = useState();
   const [registrationToggle, setRegistrationToggle] = useState(false);
@@ -24,15 +26,32 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const setUser = (_email, _username) => {
+    let userInfo = {
+      email: _email,
+      username: _username,
+    }
+    console.log("userInfo update:", JSON.stringify(userInfo));
+    sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+  }
+
   useEffect(() => {
-    client.get("/api/user")
-      .then(function (res) {
+
+    client.get("/users/user")
+      .then((res) => {
+        console.log("now logged in user: ", res);
+        setUser(
+          res.data.user.email,
+          res.data.user.username
+        );
         setCurrentUser(true);
       })
       .catch(function (error) {
+        console.log("no login");
+        setUser("", "");
         setCurrentUser(false);
       });
-  }, []);
+  }, [currentUser]);
 
   function update_form_btn() {
     if (registrationToggle) {
@@ -47,7 +66,7 @@ function Login() {
   function submitRegistration(e) {
     e.preventDefault();
     client.post(
-      "/api/register",
+      "/users/register",
       {
         email: email,
         username: username,
@@ -55,13 +74,18 @@ function Login() {
       }
     ).then(function (res) {
       client.post(
-        "/api/login",
+        "/users/login",
         {
           email: email,
-          password: password
+          password: password,
         }
-      ).then(function (res) {
+      ).then((res) => {
         setCurrentUser(true);
+        setUser(
+          res.data.email,
+          res.data.username
+        );
+        // window.location.reload();
       });
     });
   }
@@ -69,25 +93,34 @@ function Login() {
   function submitLogin(e) {
     e.preventDefault();
     client.post(
-      "/api/login",
+      "/users/login",
       {
         email: email,
-        password: password
+        password: password,
+        // withCredentials: true
       }
-    ).then(function (res) {
+    ).then((res) => {
       setCurrentUser(true);
-    });
+      console.log(res);
+      setUser(
+        res.data.email,
+        res.data.username
+      );
+      // window.location.reload();
+    }).catch(err => (console.log(err)));
   }
 
   function submitLogout(e) {
     e.preventDefault();
-    client.post(
-      "/api/logout",
-      { withCredentials: true }
-    ).then(function (res) {
+    client.get(
+      "/users/logout"
+    ).then((res) => {
       setCurrentUser(false);
+      setUser("", "");
     });
+    window.location.reload();
   }
+
 
   if (currentUser) {
     return (
@@ -115,7 +148,7 @@ function Login() {
     <div>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Authentication App</Navbar.Brand>
+          <Navbar.Brand>Authentication</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
